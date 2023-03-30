@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import searchResultReducer from '../components/SearchResult/searchResultSlice';
+import subredditsReducer from '../components/SubredditList/subredditListSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    subreddits: subredditsReducer,
+    search: searchResultReducer,
   },
 });

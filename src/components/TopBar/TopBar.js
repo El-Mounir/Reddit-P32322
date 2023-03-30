@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect,useRef} from 'react';
 import {Search} from '../Search/Search';
 
-export const TopBar=()=> {
+export const TopBar =()=> {
+    
     return(
         <header>
             <div className="header-container">
                 <img/>
-                EM<span>Reddit</span>Flavour
+                <h4>Reddit<span>Eclair</span></h4>
                 <Search/> 
             </div>
         </header>
