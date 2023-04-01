@@ -1,6 +1,7 @@
 export const ROUTES = {
+    ArticlesList: () => `/`,
     searchResult: (searchQuery) => `/search/${searchQuery}`,
-    // quizRoute: (id) => `/quizzes/${id}`,
+    // ArticlesList: (subreddit) => `/r${subreddit}`,
     // quizzesRoute: () => "/quizzes",
     // newTopicRoute: () => "/topics/new",
     // topicRoute: (id) => `/topics/${id}`,

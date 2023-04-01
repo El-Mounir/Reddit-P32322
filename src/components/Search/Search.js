@@ -1,7 +1,7 @@
 import React , { useRef , useState, useEffect }from 'react';
 import { ROUTES } from '../../app/Routes';
 import { useNavigate } from 'react-router-dom';
-import { isLoadingResult, loadSearchResult } from '../SearchResult/searchResultSlice';
+import { isLoadingResult,loadSearchResultByName } from '../SearchResult/searchResultSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
 export const Search=()=> {
@@ -13,7 +13,7 @@ export const Search=()=> {
 
     useEffect(()=>{
        if (searchTerm) {
-            dispatch(loadSearchResult(searchTerm));
+            dispatch(loadSearchResultByName(searchTerm));
         }
     },[dispatch,searchTerm]);
 
