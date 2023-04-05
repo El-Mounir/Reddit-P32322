@@ -1,0 +1,25 @@
+.searchBar-container {
+    display: flex;
+    justify-content: center;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+.searchBar {
+  width:100%;
+  border: 0;
+  height: 1.7rem;
+  padding:0 .5rem;
+  outline: 0;
+}
+.searchBar-wrapper {
+  width:60%;
+}
+.searchButton {
+border:1px solid #000;
+height: 1.7rem;
+padding: .5rem;
+border: 0;
+cursor: pointer;
+outline: 0;
+background-color: rgb(255,255,255);
+}

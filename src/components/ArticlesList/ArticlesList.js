@@ -1,15 +1,11 @@
 import React from 'react';
-import { Article } from '../Article/Article';
-import { ArticlesTypes } from '../ArticlesTypes/ArticlesTypes';
-import { selectloadHotPostSlice } from '../ArticlesList/articlesListSlice';
-import { selectloadBestPostSlice } from './bestPostSlice';
-import { useSelector } from 'react-redux';
+import { Article } from '../../features/Article/Article';
+import './ArticlesList.css';
 
-export const ArticlesList=()=> {
-    const articles = useSelector(selectloadBestPostSlice);
+export const ArticlesList=({articles})=> {
+
     return(
         <section className='articles'>
-            <ArticlesTypes/>
             <div className='article'>
                 {Object.values(articles).map((article) => (  
                     <Article article={article}/>

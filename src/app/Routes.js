@@ -1,5 +1,6 @@
 export const ROUTES = {
-    ArticlesList: () => `/`,
+    MainPage: () => `/`,
+    MainPage :(postType) => `/${postType}`,
     searchResult: (searchQuery) => `/search/${searchQuery}`,
     // ArticlesList: (subreddit) => `/r${subreddit}`,
     // quizzesRoute: () => "/quizzes",

@@ -157,7 +157,7 @@
         },
     
         async searchSubreddits(subredditName) {
-            const token = "169767304991-1RgDjExBeCoH2c5dNUTyPMXAc9nQ4g";
+            const token = "169767304991-kagZ-AopYjR7GjFThjRxsi9rhCDbUQ";
             let headers = new Headers();
             headers.set('Authorization', 'Bearer ' + token);
             const bodyData="";
@@ -184,7 +184,7 @@
             }
         },
         async searchSubredditsName(subredditName) {
-            const token = "169767304991-1RgDjExBeCoH2c5dNUTyPMXAc9nQ4g";
+            const token = "169767304991-kagZ-AopYjR7GjFThjRxsi9rhCDbUQ";
             try{
                 const response = await fetch(`https://oauth.reddit.com/subreddits/search?q=${subredditName}&limit=100`,
                 {
@@ -212,7 +212,7 @@
             }
         },
         async getMySubreddits() {
-            const token = "169767304991-1RgDjExBeCoH2c5dNUTyPMXAc9nQ4g";
+            const token = "169767304991-tqpW6gTvcOyLJb-YchfaNr1myijEfQ";
             try{
                 const response = await fetch(`https://oauth.reddit.com/subreddits/mine/subscriber`,
                 {
@@ -240,122 +240,347 @@
             }
         },
         async getSubredditHot(subreddit) {
-            const token = "169767304991-1RgDjExBeCoH2c5dNUTyPMXAc9nQ4g";
+            const token = "169767304991-tqpW6gTvcOyLJb-YchfaNr1myijEfQ";
+            let afterID;
+            let SubbreditHot;
+            let subredditAfter;
             try{
-                const response = await fetch(`https://oauth.reddit.com/r${subreddit}/hot?g=GLOBAL`,
+                const response = await fetch(`https://oauth.reddit.com/r${subreddit}/hot?g=GLOBAL&limit=90`,
                 {
                     headers:{Authorization:`Bearer ${token}`}
                 });
                 if(response.ok){
                   const jsonResponse = await response.json();
-                  return jsonResponse;
-                // if (jsonResponse.data.children){
-                //         return jsonResponse.data.children.map(subreddit => ({
-                //                                         author: subreddit.data.author,
-                //                                         title: subreddit.data.title,
-                //                                         content: subreddit.data.url,
-                //                                         comment_count: subreddit.data.num_comments,
-                //                                         postID: subreddit.data.id,
-                //                                         time:subreddit.data.created,
-                //                                         votes: subreddit.data.ups,
-                //                                     }));
-                //     } else {
-                //         return [];
-                //     }
+                  afterID = jsonResponse.data.after;
+                if (jsonResponse.data.children){
+                        return SubbreditHot = jsonResponse.data.children.map(subreddit => ({
+                                                        author: subreddit.data.author,
+                                                        title: subreddit.data.title,
+                                                        content: subreddit.data.url,
+                                                        comment_count: subreddit.data.num_comments,
+                                                        postID: subreddit.data.id,
+                                                        time:subreddit.data.created,
+                                                        votes: subreddit.data.ups,
+                                                        after:afterID
+                                                    }));
+                    } else {
+                        return [];
+                    }
+                }
+            } catch(error){
+              console.log(error);
+            }
+        },
+        async getSubredditHotAfter(afterID,subreddit) {
+            const token = "169767304991-tqpW6gTvcOyLJb-YchfaNr1myijEfQ";
+            let newafterID;
+            try {
+                const responseAfter = await fetch(`https://oauth.reddit.com/r${subreddit}/hot?g=GLOBAL&after=${afterID}&limit=90`, {
+                headers:{Authorization:`Bearer ${token}`}
+                });
+                if(responseAfter.ok){
+                    const jsonResponse = await responseAfter.json();
+                    newafterID = jsonResponse.data.after;
+                    if (jsonResponse.data.children){
+                        const subredditAfter = jsonResponse.data.children.map(subreddit => ({
+                                                        author: subreddit.data.author,
+                                                        title: subreddit.data.title,
+                                                        content: subreddit.data.url,
+                                                        comment_count: subreddit.data.num_comments,
+                                                        postID: subreddit.data.id,
+                                                        time:subreddit.data.created,
+                                                        votes: subreddit.data.ups,
+                                                        after: newafterID
+                                                    }));
+            
+                        return subredditAfter;
+                    }else {
+                        return [];
+                    }
+                }
+            }catch(error){
+                console.log(error);
+            }
+
+        },
+        async getPosts(type) {
+            const token = "169767304991-pWADjG1OONl1QhK8gbKulz6R2U5r4A";
+            let afterID;
+            try{
+                const response = await fetch(`https://oauth.reddit.com/${type}`,
+                {
+                    headers:{Authorization:`Bearer ${token}`}
+                });
+                if(response.ok){
+                  const jsonResponse = await response.json();
+                  afterID = jsonResponse.data.after;
+                if (jsonResponse.data.children){
+                        return jsonResponse.data.children.map(subreddit => ({
+                                                        author: subreddit.data.author,
+                                                        title: subreddit.data.title,
+                                                        content: subreddit.data.url,
+                                                        comment_count: subreddit.data.num_comments,
+                                                        postID: subreddit.data.id,
+                                                        time:subreddit.data.created,
+                                                        votes: subreddit.data.ups,
+                                                        after: afterID,
+                                                        type:type
+                                                    }));
+                    } else {
+                        return [];
+                    }
              }
             } catch(error){
               console.log(error);
             }
         },
+        async getBestPostsAfter(afterID) {
+            const token = "169767304991-tqpW6gTvcOyLJb-YchfaNr1myijEfQ";
+            let newafterID;
+            try{
+                const response = await fetch(`https://oauth.reddit.com/best?after=${afterID}`,
+                {
+                    headers:{Authorization:`Bearer ${token}`}
+                });
+                if(response.ok){
+                  const jsonResponse = await response.json();
+                  newafterID = jsonResponse.data.after;
+                  if (jsonResponse.data.children){
+                      const subredditAfter = jsonResponse.data.children.map(subreddit => ({
+                                                      author: subreddit.data.author,
+                                                      title: subreddit.data.title,
+                                                      content: subreddit.data.url,
+                                                      comment_count: subreddit.data.num_comments,
+                                                      postID: subreddit.data.id,
+                                                      time:subreddit.data.created,
+                                                      votes: subreddit.data.ups,
+                                                      after: newafterID
+                                                  }));
+          
+                      return subredditAfter;
+                  }else {
+                      return [];
+                    }
+             }
+            } catch(error){
+              console.log(error);
+            }
+        },
+        async getUserName() {
+            const token = "169767304991-UfSWA8zIDhGJzv2sfGVI6GJ3md3lAw";
+            try{
+                const response = await fetch(`https://oauth.reddit.com/api/v1/me`,
+                {
+                    headers:{Authorization:`Bearer ${token}`}
+                });
+                if(response.ok){
+                    const jsonResponse = await response.json();
+                    IDs.User = jsonResponse;
+                }
+            } catch(error){
+              console.log(error);
+            }
+            try {
+                IDs.userName = await IDs.User;
+                return IDs.userName;
+            }catch (error) {
+                console.log(error);
+            }
+            sessionStorage.setItem("useNameId", IDs.User.user_name);
+        },
     }
-    //const data = Reddit.searchSubredditsName("gaming");
+   
+    const data = Reddit.searchSubredditsName("gaming");
+    //const data = Reddit.getAccessToken();
 //     const data = Reddit.getMySubreddits();
-const data = Reddit.getSubredditHot("/witcher");
-console.log(data);
+//const data = Reddit.getUserName();
+//const data = Reddit.getPosts();
+console.log(data)
+//console.log(dataNew)
 
-// // const convertNumbers=(num)=>{
-// //     const number= num.toString();
-// //     if( number.length >= 7) {
-// //         const sliceOne = number.slice(-6,-5);
-// //         const sliceTwo = number.slice(0,-6);
-// //         switch (sliceOne) {
-// //         case ("0"):
-// //             return `${sliceTwo}m`;
-// //         default:
-// //             return `${sliceTwo}.${sliceOne}m`;
-// //         }
-// //     } else if(number.length >=4 ) {
-// //         const sliceOne = number.slice(-3,-2);
-// //         const sliceTwo = number.slice(0,-3);
-// //         console.log(sliceOne);
-// //         switch (sliceOne) {
-// //             case ("0"):
-// //                 return `${sliceTwo}k`;
-// //             default:
-// //                 return `${sliceTwo}.${sliceOne}k`;
-// //         }
-// //     }
-// //     return number;
-// // }
+// const test =(obj,obj1) => {
 
-
-// // const number1 = 4098;
-// // console.log(convertNumbers(number1));
-
-// const subreddits= [{
-//     icon_image:"https://b.thumbs.redditmedia.com/77QmBLkIJRXDC4NTOxfMRua93CAzejPQm4gb8jqgV4Y.png",
-// name:"wow",
-// prefixed_name:"r/wow",
-// subscriber_count:2322767,
-// redditID:"2qio8",
-// description:"World of Warcraft on Reddit!",
-// background_img:"https://styles.redditmedia.com/t5_2qio8/styles/bannerBackgroundImage_smf1oyd5dzv91.jpg?width=4000&amp;v=enabled&amp;s=f587e1c36b82123febf5a7277d645611fb46666f"
-// },
-// {
-//     icon_image:"https://b.thumbs.redditmedia.com/77QmBLkIJRXDC4NTOxfMRua93CAzejPQm4gb8jqgV4Y.png",
-// name:"wow",
-// prefixed_name:"r/wow",
-// subscriber_count:2322767,
-// redditID:"2qio8",
-// description:"World of Warcraft on Reddit!",
-// background_img:"https://styles.redditmedia.com/t5_2qio8/styles/bannerBackgroundImage_smf1oyd5dzv91.jpg?width=4000&amp;v=enabled&amp;s=f587e1c36b82123febf5a7277d645611fb46666f"
-// },
-// {
-//     icon_image:"https://b.thumbs.redditmedia.com/77QmBLkIJRXDC4NTOxfMRua93CAzejPQm4gb8jqgV4Y.png",
-// name:"wow",
-// prefixed_name:"r/wow",
-// subscriber_count:2322767,
-// redditID:"2qio8",
-// description:"World of Warcraft on Reddit!",
-// background_img:"https://styles.redditmedia.com/t5_2qio8/styles/bannerBackgroundImage_smf1oyd5dzv91.jpg?width=4000&amp;v=enabled&amp;s=f587e1c36b82123febf5a7277d645611fb46666f"
+// for (i in obj1) {
+//     obj[i]=obj1[i]
 // }
-// ]
-
-const state = {};
-
-// const fnc =(state,subreddits)=> {
-//     for (let subreddit in subreddits) {
-//         console.log(subreddits[subreddit]);
-//         state[subreddits[subreddit].redditID] = subreddits[subreddit];
-//     }
-//     return state
+// return obj
 // }
 
-console.log(Object.values(state).length);
+// const obj = test();
 
-const image= "https://styles.redditmedia.com/t5_2sebi/styles/communityIcon_ap4y66hwdara1.jpg?width=256&amp;v=enabled&amp;s=d96732986afb427fec4867eda0f55451ecd0bd38";
-// const icon =  image.match(/([^&]*)jpg/)[0];
-// console.log(icon);
+// const test1 = () => {
+//     for (i in obj) {
+//         console.log(i)
+// }
+// };
 
-function sliceImageIcon(image) {  
-    if(image.match(/([^&]*)png/)) {
-         const icon = image.match(/([^&]*)png/);
-         return icon[0];
-    } else if (image.match(/([^&]*)jpg/)) {
-         const icon = image.match(/([^&]*)jpg/);
-     return  icon[0];
+// test1();
+const obj1={
+    name1: {author:"Gamestar63",
+    title:"Healing in PVP is miserable",
+    content:"https://www.reddit.com/r/wow/comments/1299pdw/healing_in_pvp_is_miserable/",
+    comment_count:157,
+    postID:"1299pdw",
+    time:1680409056,
+    votes:150,
+    after:"t3_1299pdw",
+    },
+    name2: {author:"Gamestar63",
+    title:"Healing in PVP is miserable",
+    content:"https://www.reddit.com/r/wow/comments/1299pdw/healing_in_pvp_is_miserable/",
+    comment_count:157,
+    postID:"1299pdw",
+    time:1680409056,
+    votes:150,
+    after:"t3_1299pdw",
+    },
+    name3: {author:"Gakbknr gkjr63",
+    title:"Healinkjbkjrgbjgbable",
+    content:"https://www.reddit.com/r/wow/comments/1299pdw/healing_in_pvp_is_miserable/",
+    comment_count:157,
+    postID:"1299pdw",
+    time:1680409056,
+    votes:150,
+    after:"t3_1299pdw",
+    },
+    name4: {author:"Gakjbhjrbghjb3",
+    title:"Healinkjbvjbjhrbe",
+    content:"https://www.reddit.com/r/wow/comments/1299pdw/healing_in_pvp_is_miserable/",
+    comment_count:157,
+    postID:"1299pdw",
+    time:1680409056,
+    votes:150,
+    after:"t3_1299pdw",
     }
-    return "";
- }
+        }
+const obj = {
+    name5: {author:"Gamestar63",
+    title:"Healing in PVP is miserable",
+    content:"https://www.reddit.com/r/wow/comments/1299pdw/healing_in_pvp_is_miserable/",
+    comment_count:157,
+    postID:"1299pdw",
+    time:1680409056,
+    votes:150,
+    after:"t3_1299pdw",
+    },
+    name6: {author:"Gamestar63",
+    title:"Healing in PVP is miserable",
+    content:"https://www.reddit.com/r/wow/comments/1299pdw/healing_in_pvp_is_miserable/",
+    comment_count:157,
+    postID:"1299pdw",
+    time:1680409056,
+    votes:150,
+    after:"t3_1299pdw",
+    },
+    name7: {author:"Gakbknr gkjr63",
+    title:"Healinkjbkjrgbjgbable",
+    content:"https://www.reddit.com/r/wow/comments/1299pdw/healing_in_pvp_is_miserable/",
+    comment_count:157,
+    postID:"1299pdw",
+    time:1680409056,
+    votes:150,
+    after:"t3_1299pdw",
+    },
+    name8: {author:"Gakjbhjrbghjb3",
+    title:"Healinkjbvjbjhrbe",
+    content:"https://www.reddit.com/r/wow/comments/1299pdw/healing_in_pvp_is_miserable/",
+    comment_count:157,
+    postID:"1299pdw",
+    time:1680409056,
+    votes:150,
+    after:"t3_noice",
+    }
+}
 
- console.log(sliceImageIcon(image));
+// // const dataNr0908= test(obj1,obj);
+// // // console.log(Object.keys(dataNr0908));
+// // //console.log(Object.keys(dataNr0908).length())
+// // //console.log(Object.values(dataNr0908)[Object.keys(dataNr0908)-1].after);
+// // // const longeur = Object.keys(dataNr0908)
+// // // console.log(longeur);
+// // // console.log(longeur.length)
+// // console.log(Object.values(dataNr0908)[(Object.keys(dataNr0908).length)-1].after);
+// // //console.log(Object.values(dataNr0908).length)
+
+ 
+// objet = {
+// icon_image: "https://styles.redditmedia.com/t5_oaek3/styles/profileIcon_snooadff3dde-2dfb-48ea-a321-b5d2f8715d6c-headshot.png?width=256&amp;height=256&amp;crop=256:256,smart&amp;v=enabled&amp;s=d42dd1c082c087c35addc7f082f32f67eb0ce181",
+// id: "25zn2ivz",
+// user_name: "Numedian",
+// num_friends
+// : 
+// 0,
+// oauth_client_id
+// : 
+// "ZYWP2FoU6UN37Lwbq0FjwQ",
+// over_18
+// : 
+// true,
+// password_set
+// : 
+// true,
+// pref_autoplay
+// : 
+// true,
+// pref_clickgadget
+// : 
+// 5,
+// pref_geopopular
+// : 
+// "",
+// pref_nightmode
+// : 
+// true,
+// pref_no_profanity
+// : 
+// true,
+// pref_show_presence
+// : 
+// true,
+// pref_show_snoovatar
+// : 
+// false,
+// pref_show_trending
+// : 
+// true,
+// pref_show_twitter
+// : 
+// false,
+// pref_top_karma_subreddits
+// : 
+// true,
+// pref_video_autoplay
+// : 
+// true,
+// seen_give_award_tooltip
+// : 
+// false,
+// seen_layout_switch
+// : 
+// true,
+// seen_premium_adblock_modal
+// : 
+// false,
+// seen_redesign_modal
+// : 
+// true,
+// seen_subreddit_chat_ftux
+// : 
+// false,
+// }
+
+// // 
+// const data2 = objet.id;
+// console.log(data2)
+// const fetchUserI = async () => {
+//                 const response= await Reddit.getUserName();
+//                 return response;
+//             }
+
+//             const data3 = fetchUserI();
+//             console.log(data3)
+
+
+// const type= window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+// console.log(type)
+

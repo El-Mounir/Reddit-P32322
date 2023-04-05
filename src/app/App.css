@@ -1,8 +1,9 @@
 .App {
   text-align: center;
+  display: flex;
 }
 
-.App-logo {
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -37,4 +38,4 @@
     transform: translateY(0px);
   }
 }
-
+ */

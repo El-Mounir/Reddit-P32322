@@ -1,0 +1,6 @@
+.Page {
+    display:inline-flex;
+    justify-content: center;
+    width: 70rem;  
+    padding:0 1rem;
+}

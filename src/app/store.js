@@ -1,15 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
 import searchResultReducer from '../components/SearchResult/searchResultSlice';
 import loadMySubsSliceReducer from '../components/SubredditList/mySubredditListSlice';
-import loadHotPostSliceReducer  from '../components/ArticlesList/articlesListSlice';
-import loadBestPostSliceReducer  from '../components/ArticlesList/bestPostSlice';
+import loadPostSliceReducer  from '../components/ArticlesList/articlesListSlice';
+import headBarSliceReducer from '../components/HeadBar/headBarSlice';
+import mainPageReducer from '../components/MainPage/mainPageSlice';
 
 
 export const store = configureStore({
   reducer: {
+    main: mainPageReducer,
     search: searchResultReducer,
     subreddit: loadMySubsSliceReducer,
-    hot: loadHotPostSliceReducer,
-    best: loadBestPostSliceReducer,
+    post: loadPostSliceReducer,
+    user: headBarSliceReducer,
   },
 });

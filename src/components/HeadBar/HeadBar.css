@@ -1,0 +1,46 @@
+header,.home-container,.user-container {
+    display: flex;
+}
+header {
+    width: 100%;
+    justify-content: center;
+    background-color: rgb(72,31,22);
+    margin-bottom: 1rem;
+}
+.header-wrapper {
+    display:inline-flex;
+    align-items: center;
+    color: rgb(227,216,202);
+    width: 80rem;
+}
+.home-container {
+    background-color: rgb(72,31,22);
+    font-size: 1rem;
+    margin-right: 10%;
+    justify-content: flex-start;
+}
+.title {
+    display: inline-flex;
+    text-decoration:none;
+    color: rgb(227,216,202);
+    align-items: center;
+}
+.user-container {
+    justify-content: flex-end;
+}
+
+.user-container,.home-container {
+    flex-basis: auto;
+    width: 20%;
+}
+.userName {
+    padding: 0 0.2rem;
+}
+.user-img {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    object-fit: cover;
+    align-self: center;
+    border:thin solid rgb(227,216,202);
+}

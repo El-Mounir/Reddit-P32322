@@ -1,35 +1,30 @@
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ROUTES } from '../app/Routes';
-import { Reddit, token } from './RedditAPI'; 
-import { ArticlesTypes } from '../components/ArticlesTypes/ArticlesTypes';
-import { MySubredditList } from '../components/SubredditList/MySubredditList';
-import { ArticlesList } from '../components/ArticlesList/ArticlesList';
-import { TopBar } from '../components/TopBar/TopBar';
+import { Reddit, token } from './RedditAPI';
+import { HeadBar } from '../components/HeadBar/HeadBar';
+import { MainPage } from '../components/MainPage/MainPage';
 import { SearchResult } from '../components/SearchResult/SearchResult';
-
+import './App.css';
 
 function App() {
+  const dispatch = useDispatch(); 
 
-   useEffect(()=>{
-    if (!token) {
-      Reddit.getAccessToken()
-   }},[token]) 
+  useEffect(()=>{
+      if (!token) {
+        Reddit.getAccessToken();
+      }
+  },[dispatch,token]) 
+       
   
   return (
     <Router>
-      <TopBar/>
-      <div className='center'>
-        <main className='main-container'>
-          <MySubredditList />
-          <Routes>
-            <Route path="/" element= {<ArticlesList />}/>
-            <Route path="/:subreddit" element= {<ArticlesList />}/>
-            <Route path ='/search/:searchQuery' element= {<SearchResult/>}/>
-            <Route/>
-          </Routes>
-        </main>
-        </div>
+      <HeadBar/>
+      <Routes>
+          <Route path="/*" element= {<MainPage />}/>
+          <Route path="/:postType" element= {<MainPage />}/>
+          <Route path ='/search/:searchQuery' element= {<SearchResult/>}/>
+      </Routes>
     </Router>
   );
 }

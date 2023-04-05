@@ -1,28 +1,50 @@
 import { createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import { Reddit } from "../../app/RedditAPI";
 
-export const loadHotPosts = createAsyncThunk(
-    "hot/loadHotPosts ",
-async (subreddit) => {
-        const response = await Reddit.getSubredditHot(subreddit)
+export const loadPosts = createAsyncThunk(
+    "post/loadPosts ",
+async (type) => {
+        const response = await Reddit.getPosts(type);
         return response;
     }
     
 );
-
-export const loadHotPostSlice = createSlice({
-    name: "hot",
-    initialState: {},
+export const loadBestPostsAfter = createAsyncThunk(
+    "post/loadBestPostsAfter ",
+async (afterID) => {
+        const response = await Reddit.getBestPostsAfter(afterID)
+        return response;
+    }
+    
+);
+export const loadArticleSlice = createSlice({
+    name: "post",
+    initialState: {
+        type: {},
+        isLoadingPost: false,
+        failedToLoadPost: false,
+    },
     extraReducers:{
-        [loadHotPosts.fulfilled]: (state,action) =>{
+        [loadPosts.pending]: (state,action) =>{
+            state.isLoadingPost = true;
+            state.failedToLoadPost = false;
+        },
+        [loadPosts.fulfilled]: (state,action) =>{
+            state.type = {};
             const articles = action.payload;
             for (let article in articles) {
-                console.log(articles[article]);
-                state[articles[article].postID] = articles[article];
+                state.type[articles[article].postID] = articles[article];
             }
+            state.isLoadingPost = false;
+            state.failedToLoadPost = false;
         },
-    }
+    },
+    [loadPosts.failed]: (state,action) =>{
+        state.isLoadingPost = false;
+        state.failedToLoadPost = true;
+    },
 });
 
-export const selectloadHotPostSlice = (state)=> state.hot;
-export default loadHotPostSlice.reducer;
+export const selectLoadArticleSlice = (state)=> state.post.type;
+export const isLoadingPost= (state)=> state.search.isLoadingPost;
+export default loadArticleSlice.reducer;

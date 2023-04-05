@@ -1,0 +1,35 @@
+.subreddit {
+    display:inline-flex;
+    align-items: center;
+    width: 100%;
+    gap: 2rem;
+    background-color: rgb(36, 33, 33);
+    border-top: thin solid rgb(133, 120, 120);
+  }
+  .subreddit_img_container {
+    display: flex;
+    align-items: center;
+    padding-left: .3rem;
+    padding-top: .2rem;
+    max-width: 5%;
+  }
+  .reddit_img {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .add_button {
+    margin-left: auto;
+    margin-right: .2rem;
+    border-radius: 50%;
+  }
+  .reddit_name {
+    font-size: .75rem;
+  }
+  .reddit_name, .member_count {
+     margin: 0;
+  }
+  .name_container {
+    margin : 1rem 0;
+  }
