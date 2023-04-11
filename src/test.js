@@ -1,285 +1,420 @@
-// const IDs = {
-//     cID: "ZYWP2FoU6UN37Lwbq0FjwQ",
-//     credID: "p1fgaDtPXf87c1qKJsIloDWwtwGE4w",
-//     redirectUri: "http://localhost:3000/",
-//     //state: uuidv4(),
-//     state:"yguyef35r837gui3t78g",
-//     accessCode: "",
-// }
 
-// const Reddit= {
-    
-//     getAccessCode() {  
-//         if (IDs.accessCode) {
-//             return IDs.accessCode;
-//         };
-//         const code = window.location.href.match(/code=([^&]*)#/);
-//         const newState = window.location.href.match(/state=([^&]*)/);
-//         if (newState && code) {
-//             IDs.accessCode = code[1];
-//             window.history.pushState('state', null, '/');
-//             return IDs.accessCode;
-//         } else {
-//             window.location=`https://www.reddit.com/api/v1/authorize?client_id=${IDs.cID}&response_type=code&state=${IDs.state}&redirect_uri=${IDs.redirectUri}&duration=permanent&scope=read,submit,mysubreddits,save,subscribe`;
-//         }
-//     },
-
-//     async getAccessToken() {
-//         IDs.accessCode = Reddit.getAccessCode();
-//         let headers = new Headers();
-//         let bodyData = new FormData();
-//         bodyData.append('grant_type', "authorization_code");
-//         bodyData.append('code', IDs.accessCode);
-//         bodyData.append('redirect_uri', IDs.redirectUri);
-//         // headers.set('Authorization', 'Basic ' + Buffer.from(cID + ":" + credID).toString('base64'));
-//         headers.set('Authorization', 'Basic ' + btoa(IDs.cID + ":" + IDs.credID));
-//         try{
-//             const response = await fetch(`https://www.reddit.com/api/v1/access_token`, {
-//                 method:'POST',
-//                 headers: headers,
-//                 body: bodyData
-//                 });
-//                 if(response.ok){
-//                   const jsonResponse = await response.json();
-//                    IDs.accessToken = { token: jsonResponse.access_token,
-//                                         expiry: jsonResponse.expires_in
-//                                     }
-//                    return IDs.accessToken;
-//                 }
-//             }catch(error){
-//               console.log(error);
-//             }
-//         sessionStorage.setItem("tokenId", IDs.accessToken.token);
-//         sessionStorage.setItem("timeleft", IDs.accessToken.expiry);
-//     },
-
-//     async searchSubreddits(subredditName) {
-//         const token = "169767304991-XobSKh6aJdWAY4FOxx_oHmNIbJeRPQ";
-//         // let headers = new Headers();
-//         // headers.set('Authorization', 'Bearer ' + token);
-//         // const bodyData="";
-//         try{
-//             const response = await fetch(`https://oauth.reddit.com/subreddits/search?q=${subredditName}`,{headers:{
-//                                                                                                                             Authorization:`Bearer ${token}`
-//                                                                                                                     }
-//             });
-//             if(response.ok){
-//               const jsonResponse = await response.json();
-//             //   return jsonResponse.data.children;
-//             if (jsonResponse.data.children){
-//                     return jsonResponse.data.children.map(subreddit => ({
-//                                                     icon_image: subreddit.data.icon_img,
-//                                                     name: subreddit.data.display_name,
-//                                                     prefixed_name: subreddit.data.display_name_prefixed,
-//                                                     subscriber_count: subreddit.data.subscribers,
-//                                                     redditID: subreddit.data.id,
-//                                                     description:subreddit.data.public_description,
-//                                                     background_img: subreddit.data.banner_background_image,
-//                                                 }));
-//                 } else {
-//                     return [];
-//                 }
-//          }
-//         } catch(error){
-//           console.log(error);
-//         }
-//     },
-
-//     timeLeftToExpiry() {
-//         const timeleft = sessionStorage.getItem("timeleft");
-//         setTimeout(()=>{
-//             timeleft-= 1000;
-//         }, 1000)
-//     }
-// }
-// const data = Reddit.searchSubreddits("gaming");
-// console.log(data);
-
-// const array=[data
-//     : 
-//     {user_flair_background_color: null, submit_text_html: '&lt;!-- SC_OFF --&gt;&lt;div class="md"&gt;&lt;h1&…&gt;\n&lt;/ol&gt;\n&lt;/div&gt;&lt;!-- SC_ON --&gt;', restrict_posting: true, user_is_banned: false, free_form_reports: false, …}
-//     kind
-//     : 
-//     "t5"]
-
-    const IDs = {
-        cID: "ZYWP2FoU6UN37Lwbq0FjwQ",
-        credID: "p1fgaDtPXf87c1qKJsIloDWwtwGE4w",
-        redirectUri: "http://localhost:3000/",
-        state:"yguyef35r837gui3t78g",
-        accessCode: "",
-    }
-    
-    const Reddit= {
+        const IDs = {
+            cID: "ZYWP2FoU6UN37Lwbq0FjwQ",
+            credID: "p1fgaDtPXf87c1qKJsIloDWwtwGE4w",
+            redirectUri: "http://localhost:3000/",
+            state:"yguyef35r837gui3t78g",
+            accessCode: "",
+        }
+        const token = "169767304991-tKtJTbt6MG8e3QFPZsTf4Ikc2iK4SA";
         
-        getAccessCode() {  
-            if (IDs.accessCode) {
-                return IDs.accessCode;
-            };
-            const code = window.location.href.match(/code=([^&]*)#/);
-            const newState = window.location.href.match(/state=([^&]*)/);
-            if (newState && code) {
-                IDs.accessCode = code[1];
-                window.history.pushState('state', null, '/');
-                return IDs.accessCode;
-            } else {
-                window.location=`https://www.reddit.com/api/v1/authorize?client_id=${IDs.cID}&response_type=code&state=${IDs.state}&redirect_uri=${IDs.redirectUri}&duration=permanent&scope=read,submit,mysubreddits,save,subscribe`;
-            }
-        },
-    
-        async getAccessToken() {
-            IDs.accessCode = Reddit.getAccessCode();
-            let headers = new Headers();
-            let bodyData = new FormData();
-            bodyData.append('grant_type', "authorization_code");
-            bodyData.append('code', IDs.accessCode);
-            bodyData.append('redirect_uri', IDs.redirectUri);
-            // headers.set('Authorization', 'Basic ' + Buffer.from(cID + ":" + credID).toString('base64'));
-            headers.set('Authorization', 'Basic ' + btoa(IDs.cID + ":" + IDs.credID));
-            try{
-                const response = await fetch(`https://www.reddit.com/api/v1/access_token`, {
+        const Reddit= {
+            
+            getAccessCode() {  
+                if (IDs.accessCode) {
+                    return IDs.accessCode;
+                };
+                const code = window.location.href.match(/code=([^&]*)#/);
+                const newState = window.location.href.match(/state=([^&]*)/);
+                if (newState && code) {
+                    IDs.accessCode = code[1];
+                    window.history.pushState('state', null, '/');
+                    return IDs.accessCode;
+                } else {
+                    window.location=`https://www.reddit.com/api/v1/authorize?client_id=${IDs.cID}&response_type=code&state=${IDs.state}&redirect_uri=${IDs.redirectUri}&duration=permanent&scope=read,submit,mysubreddits,save,subscribe`;
+                }
+            },
+        
+            async getAccessToken() {
+                IDs.accessCode = Reddit.getAccessCode();
+                let headers = new Headers();
+                let bodyData = new FormData();
+                bodyData.append('grant_type', "authorization_code");
+                bodyData.append('code', IDs.accessCode);
+                bodyData.append('redirect_uri', IDs.redirectUri);
+                // headers.set('Authorization', 'Basic ' + Buffer.from(cID + ":" + credID).toString('base64'));
+                headers.set('Authorization', 'Basic ' + btoa(IDs.cID + ":" + IDs.credID));
+                try{
+                    const response = await fetch(`https://www.reddit.com/api/v1/access_token`, {
+                        method:'POST',
+                        headers: headers,
+                        body: bodyData
+                        });
+                        if(response.ok){
+                        const jsonResponse = await response.json();
+                        IDs.accessToken = { token: jsonResponse.access_token,
+                                                expiry: jsonResponse.expires_in
+                                            }
+                        return IDs.accessToken;
+                        }
+                    }catch(error){
+                    console.log(error);
+                    }
+                sessionStorage.setItem("tokenId", IDs.accessToken.token);
+                sessionStorage.setItem("timeleft", IDs.accessToken.expiry);
+            },
+        
+            async searchSubreddits(subredditName) {
+                let headers = new Headers();
+                headers.set('Authorization', 'Bearer ' + token);
+                const bodyData="";
+                try{
+                    const response = await fetch(`https://oauth.reddit.com/api/search_subreddits?query=${subredditName}&include_over_18=true&include_unadvertisable=true&typeahead_active=true`,{
                     method:'POST',
-                    headers: headers,
-                    body: bodyData
+                    body: bodyData,
+                    headers:headers
+                    });
+                    if(response.ok){
+                    const jsonResponse = await response.json();
+                    if (jsonResponse.subreddits){
+                            return jsonResponse.subreddits.map(subreddit => ({
+                                                            icon_image: subreddit.icon_img,
+                                                            name: subreddit.name,
+                                                            subscriber_count: subreddit.subscriber_count,
+                                                        }));
+                        } else {
+                            return [];
+                        }
+                    }
+                } catch(error){
+                console.log(error);
+                }
+            },
+            async searchSubredditsName(subredditName) {
+
+                try{
+                    const response = await fetch(`https://oauth.reddit.com/subreddits/search?q=${subredditName}&limit=100`,
+                    {
+                        headers:{Authorization:`Bearer ${token}`}
+                    });
+                    if(response.ok){
+                    const jsonResponse = await response.json();
+                    return jsonResponse;
+                    // if (jsonResponse.data.children){
+                    //         return jsonResponse.data.children.map(subreddit => ({
+                    //                                         icon_image: subreddit.data.icon_img,
+                    //                                         name: subreddit.data.display_name,
+                    //                                         prefixed_name: subreddit.data.display_name_prefixed,
+                    //                                         subscriber_count: subreddit.data.subscribers,
+                    //                                         redditID: subreddit.data.id,
+                    //                                         description:subreddit.data.public_description,
+                    //                                         background_img: subreddit.data.banner_background_image,
+                    //                                     }));
+                    //     } else {
+                    //         return [];
+                    //     }
+                }
+                } catch(error){
+                console.log(error);
+                }
+            },
+            async getMySubreddits() {
+                try{
+                    const response = await fetch(`https://oauth.reddit.com/subreddits/mine/subscriber`,
+                    {
+                        headers:{Authorization:`Bearer ${token}`}
+                    });
+                    if(response.ok){
+                    const jsonResponse = await response.json();
+                    //return jsonResponse;
+                    if (jsonResponse.data.children){
+                            return jsonResponse.data.children.map(subreddit => ({
+                                                            icon_image: subreddit.data.community_icon,
+                                                            name: subreddit.data.display_name,
+                                                            prefixed_name: subreddit.data.display_name_prefixed,
+                                                            subscriber_count: subreddit.data.subscribers,
+                                                            redditID: subreddit.data.id,
+                                                            description:subreddit.data.public_description,
+                                                            background_img: subreddit.data.banner_background_image,
+                                                        }));
+                        } else {
+                            return [];
+                        }
+                }
+                } catch(error){
+                console.log(error);
+                }
+            },
+            async getSubredditHot(subreddit) {
+                let afterID;
+                let SubbreditHot;
+                let subredditAfter;
+                try{
+                    const response = await fetch(`https://oauth.reddit.com/r${subreddit}/hot?g=GLOBAL&limit=90`,
+                    {
+                        headers:{Authorization:`Bearer ${token}`}
+                    });
+                    if(response.ok){
+                    const jsonResponse = await response.json();
+                    afterID = jsonResponse.data.after;
+                    if (jsonResponse.data.children){
+                            return SubbreditHot = jsonResponse.data.children.map(subreddit => ({
+                                                            author: subreddit.data.author,
+                                                            title: subreddit.data.title,
+                                                            content: subreddit.data.url,
+                                                            comment_count: subreddit.data.num_comments,
+                                                            postID: subreddit.data.id,
+                                                            time:subreddit.data.created,
+                                                            votes: subreddit.data.ups,
+                                                            after:afterID
+                                                        }));
+                        } else {
+                            return [];
+                        }
+                    }
+                } catch(error){
+                console.log(error);
+                }
+            },
+            async getSubredditHotAfter(afterID,subreddit) {
+                let newafterID;
+                try {
+                    const responseAfter = await fetch(`https://oauth.reddit.com/r${subreddit}/hot?g=GLOBAL&after=${afterID}&limit=90`, {
+                    headers:{Authorization:`Bearer ${token}`}
+                    });
+                    if(responseAfter.ok){
+                        const jsonResponse = await responseAfter.json();
+                        newafterID = jsonResponse.data.after;
+                        if (jsonResponse.data.children){
+                            const subredditAfter = jsonResponse.data.children.map(subreddit => ({
+                                                            author: subreddit.data.author,
+                                                            title: subreddit.data.title,
+                                                            content: subreddit.data.url,
+                                                            comment_count: subreddit.data.num_comments,
+                                                            postID: subreddit.data.id,
+                                                            time:subreddit.data.created,
+                                                            votes: subreddit.data.ups,
+                                                            after: newafterID
+                                                        }));
+                
+                            return subredditAfter;
+                        }else {
+                            return [];
+                        }
+                    }
+                }catch(error){
+                    console.log(error);
+                }
+
+            },
+            async getPosts(subreddit,type) {
+                let afterID;
+                let postsWithVideos;
+                if(subreddit) {
+                    try {
+                        const response = await fetch(`https://oauth.reddit.com/r/${subreddit}/${type}?g=GLOBAL`,
+                        {
+                            headers:{Authorization:`Bearer ${token}`}
+                        });
+                        if(response.ok){
+                        const jsonResponse = await response.json();
+                        afterID = jsonResponse.data.after;
+                        if (jsonResponse.data.children){
+                                postsWithVideos= jsonResponse.data.children.map(subreddit => ({
+                                                                author: subreddit.data.author,
+                                                                title: subreddit.data.title,
+                                                                content: subreddit.data.url,
+                                                                comment_count: subreddit.data.num_comments,
+                                                                postID: subreddit.data.id,
+                                                                time:subreddit.data.created,
+                                                                votes: subreddit.data.ups,
+                                                                after: afterID,
+                                                                type:type,
+                                                                postType: subreddit.data.post_hint,
+                                                            }));
+                                                            for (item in postsWithVideos) {
+                                                                if (postsWithVideos[item].postType == "hosted:video") {
+                                                                    postsWithVideos[item].video = jsonResponse.data.children[item].data.media.reddit_video.fallback_url;
+                                                                    // console.log(postsWithVideos[item]);
+                                                                    // console.log(jsonResponse.data.children[item].data.media.reddit_video.fallback_url)
+                                                                }
+                                                            }
+                                                            console.log(postsWithVideos);
+                            return postsWithVideos;
+                            
+                            } else {
+                                return [];
+                            }
+                    }
+                    } catch(error){
+                    console.log(error);
+                    }
+                } else {
+                    try {
+                        const response = await fetch(`https://oauth.reddit.com/${type}`,
+                        {
+                            headers:{Authorization:`Bearer ${token}`}
+                        });
+                        if(response.ok){
+                        const jsonResponse = await response.json();
+                        afterID = jsonResponse.data.after;
+                        if (jsonResponse.data.children){
+                                jsonResponse.data.children.map(subreddit => ({
+                                                                author: subreddit.data.author,
+                                                                title: subreddit.data.title,
+                                                                content: subreddit.data.url,
+                                                                comment_count: subreddit.data.num_comments,
+                                                                postID: subreddit.data.id,
+                                                                time:subreddit.data.created,
+                                                                votes: subreddit.data.ups,
+                                                                after: afterID,
+                                                                type:type,
+                                                                postType: subreddit.data.post_hint,
+                                                            }));
+                                                        
+                            } else {
+                                return [];
+                            }
+                    }
+                    } catch(error){
+                    console.log(error);
+                    }
+                }   
+                // window.location.reload();
+            },
+            async getMorePosts(subreddit,type,afterID) {
+                let newAfterID;
+                let postsWithVideos;
+                if(subreddit) {
+                    try {
+                        const response = await fetch(`https://oauth.reddit.com/r/${subreddit}/${type}?g=GLOBAL&after=${afterID}`,
+                        {
+                            headers:{Authorization:`Bearer ${token}`}
+                        });
+                        if(response.ok){
+                        const jsonResponse = await response.json();
+                        newAfterID = jsonResponse.data.after;
+                        if (jsonResponse.data.children){
+                                postsWithVideos= jsonResponse.data.children.map(subreddit => ({
+                                                                author: subreddit.data.author,
+                                                                title: subreddit.data.title,
+                                                                content: subreddit.data.url,
+                                                                comment_count: subreddit.data.num_comments,
+                                                                postID: subreddit.data.id,
+                                                                time:subreddit.data.created,
+                                                                votes: subreddit.data.ups,
+                                                                after: newAfterID,
+                                                                type:type,
+                                                                postType: subreddit.data.post_hint,
+                                                            }));
+                                                            for (item in postsWithVideos) {
+                                                                if (postsWithVideos[item].postType == "hosted:video") {
+                                                                    postsWithVideos[item].video = jsonResponse.data.children[item].data.media.reddit_video.fallback_url;
+                                                                    // console.log(postsWithVideos[item]);
+                                                                    // console.log(jsonResponse.data.children[item].data.media.reddit_video.fallback_url)
+                                                                }
+                                                            }
+                                                            console.log(postsWithVideos);
+                            return postsWithVideos;
+                            
+                            } else {
+                                return [];
+                            }
+                    }
+                    } catch(error){
+                    console.log(error);
+                    }
+                } else {
+                    try {
+                        const response = await fetch(`https://oauth.reddit.com/${type}?after=${afterID}`,
+                        {
+                            headers:{Authorization:`Bearer ${token}`}
+                        });
+                        if(response.ok){
+                        const jsonResponse = await response.json();
+                        newAfterID = jsonResponse.data.after;
+                        if (jsonResponse.data.children){
+                                postsWithVideos= jsonResponse.data.children.map(subreddit => ({
+                                                                author: subreddit.data.author,
+                                                                title: subreddit.data.title,
+                                                                content: subreddit.data.url,
+                                                                comment_count: subreddit.data.num_comments,
+                                                                postID: subreddit.data.id,
+                                                                time:subreddit.data.created,
+                                                                votes: subreddit.data.ups,
+                                                                after: newAfterID,
+                                                                type:type,
+                                                                postType: subreddit.data.post_hint,
+                                                            }));
+                                                            for (item in postsWithVideos) {
+                                                                if (postsWithVideos[item].postType == "hosted:video") {
+                                                                    postsWithVideos[item].video = jsonResponse.data.children[item].data.media.reddit_video.fallback_url;
+                                                                    // console.log(postsWithVideos[item]);
+                                                                    // console.log(jsonResponse.data.children[item].data.media.reddit_video.fallback_url)
+                                                                }
+                                                            }
+                                                            console.log(postsWithVideos);
+                            return postsWithVideos;
+                            
+                                                        
+                            } else {
+                                return [];
+                            }
+                    }
+                    } catch(error){
+                    console.log(error);
+                    }
+                }   
+            },
+            async manageSubscriptions(subscription,subreddit) {
+                const bodyData="";
+                if (subscription) {
+                try{
+                    const response = await fetch(`https://oauth.reddit.com/api/subscribe?action=sub&sr_name=${subreddit}&skip_initial_defaults=true&action_source=o`,
+                    {
+                        method:'POST',
+                        body: bodyData,
+                        headers:{Authorization:`Bearer ${token}`}
                     });
                     if(response.ok){
                       const jsonResponse = await response.json();
-                       IDs.accessToken = { token: jsonResponse.access_token,
-                                            expiry: jsonResponse.expires_in
-                                        }
-                       return IDs.accessToken;
-                    }
-                }catch(error){
+                      return jsonResponse;
+                //       afterID = jsonResponse.data.after;
+                //     if (jsonResponse.data.children){
+                //             return jsonResponse.data.children.map(subreddit => ({
+                //                                             author: subreddit.data.author,
+                //                                             title: subreddit.data.title,
+                //                                             content: subreddit.data.url,
+                //                                             comment_count: subreddit.data.num_comments,
+                //                                             postID: subreddit.data.id,
+                //                                             time:subreddit.data.created,
+                //                                             votes: subreddit.data.ups,
+                //                                             after: afterID,
+                //                                             type:type
+                //                                         }));
+                //         } else {
+                //             return [];
+                //         }
+                 }
+                } catch(error){
                   console.log(error);
                 }
-            sessionStorage.setItem("tokenId", IDs.accessToken.token);
-            sessionStorage.setItem("timeleft", IDs.accessToken.expiry);
-        },
-    
-        async searchSubreddits(subredditName) {
-            const token = "169767304991-kagZ-AopYjR7GjFThjRxsi9rhCDbUQ";
-            let headers = new Headers();
-            headers.set('Authorization', 'Bearer ' + token);
-            const bodyData="";
-            try{
-                const response = await fetch(`https://oauth.reddit.com/api/search_subreddits?query=${subredditName}&include_over_18=true&include_unadvertisable=true&typeahead_active=true`,{
-                method:'POST',
-                body: bodyData,
-                headers:headers
-                });
-                if(response.ok){
-                  const jsonResponse = await response.json();
-                  if (jsonResponse.subreddits){
-                        return jsonResponse.subreddits.map(subreddit => ({
-                                                        icon_image: subreddit.icon_img,
-                                                        name: subreddit.name,
-                                                        subscriber_count: subreddit.subscriber_count,
-                                                    }));
-                    } else {
-                        return [];
+            }  else {
+                try{
+                    const response = await fetch(`https://oauth.reddit.com/api/subscribe?action=unsub&sr_name=${subreddit}&action_source=o`,
+                    {
+                        method:'POST',
+                        body: bodyData,
+                        headers:{Authorization:`Bearer ${token}`}
+                    });
+                    if(response.ok){
+                      const jsonResponse = await response.json();
+                      return jsonResponse;
                     }
+                } catch(error){
+                  console.log(error);
                 }
-            } catch(error){
-              console.log(error);
             }
-        },
-        async searchSubredditsName(subredditName) {
-            const token = "169767304991-kagZ-AopYjR7GjFThjRxsi9rhCDbUQ";
-            try{
-                const response = await fetch(`https://oauth.reddit.com/subreddits/search?q=${subredditName}&limit=100`,
-                {
-                    headers:{Authorization:`Bearer ${token}`}
-                });
-                if(response.ok){
-                  const jsonResponse = await response.json();
-                  return jsonResponse;
-                // if (jsonResponse.data.children){
-                //         return jsonResponse.data.children.map(subreddit => ({
-                //                                         icon_image: subreddit.data.icon_img,
-                //                                         name: subreddit.data.display_name,
-                //                                         prefixed_name: subreddit.data.display_name_prefixed,
-                //                                         subscriber_count: subreddit.data.subscribers,
-                //                                         redditID: subreddit.data.id,
-                //                                         description:subreddit.data.public_description,
-                //                                         background_img: subreddit.data.banner_background_image,
-                //                                     }));
-                //     } else {
-                //         return [];
-                //     }
-             }
-            } catch(error){
-              console.log(error);
-            }
-        },
-        async getMySubreddits() {
-            const token = "169767304991-tqpW6gTvcOyLJb-YchfaNr1myijEfQ";
-            try{
-                const response = await fetch(`https://oauth.reddit.com/subreddits/mine/subscriber`,
-                {
-                    headers:{Authorization:`Bearer ${token}`}
-                });
-                if(response.ok){
-                  const jsonResponse = await response.json();
-                  //return jsonResponse;
-                if (jsonResponse.data.children){
-                        return jsonResponse.data.children.map(subreddit => ({
-                                                        icon_image: subreddit.data.community_icon.match(/([^&]*)png/)[0],
-                                                        name: subreddit.data.display_name,
-                                                        prefixed_name: subreddit.data.display_name_prefixed,
-                                                        subscriber_count: subreddit.data.subscribers,
-                                                        redditID: subreddit.data.id,
-                                                        description:subreddit.data.public_description,
-                                                        background_img: subreddit.data.banner_background_image,
-                                                    }));
-                    } else {
-                        return [];
-                    }
-             }
-            } catch(error){
-              console.log(error);
-            }
-        },
-        async getSubredditHot(subreddit) {
-            const token = "169767304991-tqpW6gTvcOyLJb-YchfaNr1myijEfQ";
-            let afterID;
-            let SubbreditHot;
-            let subredditAfter;
-            try{
-                const response = await fetch(`https://oauth.reddit.com/r${subreddit}/hot?g=GLOBAL&limit=90`,
-                {
-                    headers:{Authorization:`Bearer ${token}`}
-                });
-                if(response.ok){
-                  const jsonResponse = await response.json();
-                  afterID = jsonResponse.data.after;
-                if (jsonResponse.data.children){
-                        return SubbreditHot = jsonResponse.data.children.map(subreddit => ({
-                                                        author: subreddit.data.author,
-                                                        title: subreddit.data.title,
-                                                        content: subreddit.data.url,
-                                                        comment_count: subreddit.data.num_comments,
-                                                        postID: subreddit.data.id,
-                                                        time:subreddit.data.created,
-                                                        votes: subreddit.data.ups,
-                                                        after:afterID
-                                                    }));
-                    } else {
-                        return [];
-                    }
-                }
-            } catch(error){
-              console.log(error);
-            }
-        },
-        async getSubredditHotAfter(afterID,subreddit) {
-            const token = "169767304991-tqpW6gTvcOyLJb-YchfaNr1myijEfQ";
-            let newafterID;
-            try {
-                const responseAfter = await fetch(`https://oauth.reddit.com/r${subreddit}/hot?g=GLOBAL&after=${afterID}&limit=90`, {
-                headers:{Authorization:`Bearer ${token}`}
-                });
-                if(responseAfter.ok){
-                    const jsonResponse = await responseAfter.json();
+            },
+            async getBestPostsAfter(afterID) {
+                let newafterID;
+                try{
+                    const response = await fetch(`https://oauth.reddit.com/best?after=${afterID}`,
+                    {
+                        headers:{Authorization:`Bearer ${token}`}
+                    });
+                    if(response.ok){
+                    const jsonResponse = await response.json();
                     newafterID = jsonResponse.data.after;
                     if (jsonResponse.data.children){
                         const subredditAfter = jsonResponse.data.children.map(subreddit => ({
@@ -296,107 +431,43 @@
                         return subredditAfter;
                     }else {
                         return [];
-                    }
+                        }
                 }
-            }catch(error){
+                } catch(error){
                 console.log(error);
-            }
-
-        },
-        async getPosts(type) {
-            const token = "169767304991-pWADjG1OONl1QhK8gbKulz6R2U5r4A";
-            let afterID;
-            try{
-                const response = await fetch(`https://oauth.reddit.com/${type}`,
-                {
-                    headers:{Authorization:`Bearer ${token}`}
-                });
-                if(response.ok){
-                  const jsonResponse = await response.json();
-                  afterID = jsonResponse.data.after;
-                if (jsonResponse.data.children){
-                        return jsonResponse.data.children.map(subreddit => ({
-                                                        author: subreddit.data.author,
-                                                        title: subreddit.data.title,
-                                                        content: subreddit.data.url,
-                                                        comment_count: subreddit.data.num_comments,
-                                                        postID: subreddit.data.id,
-                                                        time:subreddit.data.created,
-                                                        votes: subreddit.data.ups,
-                                                        after: afterID,
-                                                        type:type
-                                                    }));
-                    } else {
-                        return [];
-                    }
-             }
-            } catch(error){
-              console.log(error);
-            }
-        },
-        async getBestPostsAfter(afterID) {
-            const token = "169767304991-tqpW6gTvcOyLJb-YchfaNr1myijEfQ";
-            let newafterID;
-            try{
-                const response = await fetch(`https://oauth.reddit.com/best?after=${afterID}`,
-                {
-                    headers:{Authorization:`Bearer ${token}`}
-                });
-                if(response.ok){
-                  const jsonResponse = await response.json();
-                  newafterID = jsonResponse.data.after;
-                  if (jsonResponse.data.children){
-                      const subredditAfter = jsonResponse.data.children.map(subreddit => ({
-                                                      author: subreddit.data.author,
-                                                      title: subreddit.data.title,
-                                                      content: subreddit.data.url,
-                                                      comment_count: subreddit.data.num_comments,
-                                                      postID: subreddit.data.id,
-                                                      time:subreddit.data.created,
-                                                      votes: subreddit.data.ups,
-                                                      after: newafterID
-                                                  }));
-          
-                      return subredditAfter;
-                  }else {
-                      return [];
-                    }
-             }
-            } catch(error){
-              console.log(error);
-            }
-        },
-        async getUserName() {
-            const token = "169767304991-UfSWA8zIDhGJzv2sfGVI6GJ3md3lAw";
-            try{
-                const response = await fetch(`https://oauth.reddit.com/api/v1/me`,
-                {
-                    headers:{Authorization:`Bearer ${token}`}
-                });
-                if(response.ok){
-                    const jsonResponse = await response.json();
-                    IDs.User = jsonResponse;
                 }
-            } catch(error){
-              console.log(error);
-            }
-            try {
-                IDs.userName = await IDs.User;
-                return IDs.userName;
-            }catch (error) {
+            },
+            async getUserName() {
+                try{
+                    const response = await fetch(`https://oauth.reddit.com/api/v1/me`,
+                    {
+                        headers:{Authorization:`Bearer ${token}`}
+                    });
+                    if(response.ok){
+                        const jsonResponse = await response.json();
+                        IDs.User = jsonResponse;
+                    }
+                } catch(error){
                 console.log(error);
-            }
-            sessionStorage.setItem("useNameId", IDs.User.user_name);
-        },
-    }
-   
-    const data = Reddit.searchSubredditsName("gaming");
-    //const data = Reddit.getAccessToken();
-//     const data = Reddit.getMySubreddits();
-//const data = Reddit.getUserName();
-//const data = Reddit.getPosts();
-console.log(data)
-//console.log(dataNew)
+                }
+                try {
+                    IDs.userName = await IDs.User;
+                    return IDs.userName;
+                }catch (error) {
+                    console.log(error);
+                }
+                sessionStorage.setItem("useNameId", IDs.User.user_name);
+            },
+        }
+    
+        // const data = Reddit.searchSubredditsName("gaming");
+        //const data = Reddit.getAccessToken();
+    //     const data = Reddit.getMySubreddits();
+    // const data = Reddit.getUserName();
+    //const data = Reddit.getPosts("wow","new");
+    const data = Reddit.manageSubscriptions(false,"wow");
+    console.log(data)
+// console.log(dataNew)
 
 // const test =(obj,obj1) => {
 
@@ -416,7 +487,7 @@ console.log(data)
 
 // test1();
 const obj1={
-    name1: {author:"Gamestar63",
+    "Gamestar63": {author:"Gamestar63",
     title:"Healing in PVP is miserable",
     content:"https://www.reddit.com/r/wow/comments/1299pdw/healing_in_pvp_is_miserable/",
     comment_count:157,
@@ -425,7 +496,7 @@ const obj1={
     votes:150,
     after:"t3_1299pdw",
     },
-    name2: {author:"Gamestar63",
+    "Gamehbhfstar63": {author:"Gamehbhfstar63",
     title:"Healing in PVP is miserable",
     content:"https://www.reddit.com/r/wow/comments/1299pdw/healing_in_pvp_is_miserable/",
     comment_count:157,
@@ -434,7 +505,7 @@ const obj1={
     votes:150,
     after:"t3_1299pdw",
     },
-    name3: {author:"Gakbknr gkjr63",
+    "Gakbknr gkjr63": {author:"Gakbknr gkjr63",
     title:"Healinkjbkjrgbjgbable",
     content:"https://www.reddit.com/r/wow/comments/1299pdw/healing_in_pvp_is_miserable/",
     comment_count:157,
@@ -443,7 +514,7 @@ const obj1={
     votes:150,
     after:"t3_1299pdw",
     },
-    name4: {author:"Gakjbhjrbghjb3",
+    "Gakjbhjrbghjb3": {author:"Gakjbhjrbghjb3",
     title:"Healinkjbvjbjhrbe",
     content:"https://www.reddit.com/r/wow/comments/1299pdw/healing_in_pvp_is_miserable/",
     comment_count:157,
@@ -492,6 +563,45 @@ const obj = {
     }
 }
 
+
+const obj10=[
+    {author:"Gamestar63",
+    title:"Healing in PVP is miserable",
+    content:"https://www.reddit.com/r/wow/comments/1299pdw/healing_in_pvp_is_miserable/",
+    comment_count:157,
+    postID:"1299pdw",
+    time:1680409056,
+    votes:150,
+    after:"t3_1299pdw",
+    },
+    {author:"Gamestar63",
+    title:"Healing in PVP is miserable",
+    content:"https://www.reddit.com/r/wow/comments/1299pdw/healing_in_pvp_is_miserable/",
+    comment_count:157,
+    postID:"1299pdw",
+    time:1680409056,
+    votes:150,
+    after:"t3_1299pdw",
+    },
+    {author:"Gakbknr gkjr63",
+    title:"Healinkjbkjrgbjgbable",
+    content:"https://www.reddit.com/r/wow/comments/1299pdw/healing_in_pvp_is_miserable/",
+    comment_count:157,
+    postID:"1299pdw",
+    time:1680409056,
+    votes:150,
+    after:"t3_1299pdw",
+    },
+    {author:"Gakjbhjrbghjb3",
+    title:"Healinkjbvjbjhrbe",
+    content:"https://www.reddit.com/r/wow/comments/1299pdw/healing_in_pvp_is_miserable/",
+    comment_count:157,
+    postID:"1299pdw",
+    time:1680409056,
+    votes:150,
+    after:"t3_1299pdw",
+    }
+    ]
 // // const dataNr0908= test(obj1,obj);
 // // // console.log(Object.keys(dataNr0908));
 // // //console.log(Object.keys(dataNr0908).length())
@@ -584,3 +694,95 @@ const obj = {
 // const type= window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
 // console.log(type)
 
+// const subreddit = {
+//     background_img:"https://styles.redditmedia.com/t5_2qio8/styles/bannerBackgroundImage_vdsi0hn56dra1.jpg",
+//     description:"World of Warcraft on Reddit!",
+//     icon_image:"https://styles.redditmedia.com/t5_2qio8/styles/communityIcon_f3a3cxfc6dra1.png",
+//     name:"wow",
+//     prefixed_name:"r/wow",
+//     redditID:"2qio8",
+//     subscriber_count:2323685
+// }
+
+// Object.values(obj).map(object => object.author === Gamestar63 );
+// const foo =(obj) => {
+//     for (let i=0; i < obj.length ;i++) {
+//           if (obj[i].author == "Gamestar63") {
+//             return obj[i];
+//           }
+//     }
+     
+// }
+
+//console.log(foo(obj10));
+// console.log(obj)
+// const bar = Object.values(obj10).find(object => object.author === "uigiugu" );
+// const bar1 = Object.values(obj).find(mysubreddit => mysubreddit.author=== "Gamestar63" );
+// // console.log(bar);
+// (bar ? console.log(bar) : console.log("not bar"));
+// console.log(bar1);
+ 
+
+// const foo = (obj) => {
+
+//     for (bar in obj) {
+//         console.log(obj[bar].video = "har")
+
+//     }
+//   return obj
+// }
+
+// console.log(foo(obj));
+
+;
+// const segment = " &amp;nbsp;"
+    // const replacedText = (text) => {
+    // const segment = " &amp;nbsp;"
+    //  return text.replaceAll(segment, "\n\n")
+    // }
+// console.log(foo(text))
+
+// const videoYoutube = "https://www.youtube.com/watch?v=AwLjdzgglNI&amp;t=2s"
+
+// const embedYoutube = (youtubeVideo) => {
+//     (youtubeVideo.match(/v=([^&]*)/) ? youtubeVideo = youtubeVideo.replace("watch?v=","embed/") : youtubeVideo = `https://www.youtube.com/embed/${youtubeVideo.slice(-11)}`)
+//     return youtubeVideo;
+// }
+
+// console.log(embedYoutube(videoYoutube))
+// console.log(videoYoutube.replace("watch?v=","embed/"));
+
+// console.log(videoYoutube.match(/v=([^&]*)/)[0]);
+const obj2= {author:"Gakjbhjrbghjb3",
+    title:"Healinkjbvjbjhrbe",
+    content:"https://www.reddit.com/r/wow/comments/1299pdw/healing_in_pvp_is_miserable/",
+    comment_count:157,
+    postID:"1299pdw",
+    time:1680409056,
+    votes:150,
+    after:"t3_noice",
+    }
+
+function addMorelists(list1,list2) {
+    for (let item in list2) {
+        list1[item] = list2[item]
+    }
+    return list1
+}
+// console.log(obj);
+// console.log(obj1);
+
+// console.log(addMorelists(obj1,obj))
+
+const inMySubreddits =(mySubreddits,unit) => {
+    
+    for (sub in mySubreddits) {
+        (sub === unit.author ? true : false)
+    }
+
+}
+
+console.log(inMySubreddits(obj1,obj2));
+
+// console.log(Object.values(obj)[0].author);
+// console.log()

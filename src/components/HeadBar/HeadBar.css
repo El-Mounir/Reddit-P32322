@@ -5,7 +5,6 @@ header {
     width: 100%;
     justify-content: center;
     background-color: rgb(72,31,22);
-    margin-bottom: 1rem;
 }
 .header-wrapper {
     display:inline-flex;

@@ -57,6 +57,22 @@ export const toolKeys = {
     },
     getArticleType() {
         return  window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+    },
+    replaceText(text){
+        return text.replaceAll(".", ".\n\n")
+    },
+    embedYoutube(youtubeVideo) {
+        (youtubeVideo.match(/v=([^&]*)/) ? youtubeVideo = youtubeVideo.replace("watch?v=","embed/") : youtubeVideo = `https://www.youtube.com/embed/${youtubeVideo.slice(-11)}`)
+        return youtubeVideo;
+    },
+    getSelectedSubreddit(searchResults,mySubreddits,subreddit) {
+        const searchReddit = Object.values(searchResults).find(search=> search.name === subreddit);
+        const mySubreddit = Object.values(mySubreddits).find(mysubreddit => mysubreddit.name === subreddit);
+        if (searchReddit) {
+            return searchReddit;
+        } else {
+            return mySubreddit;
+        }
     }
 }
 

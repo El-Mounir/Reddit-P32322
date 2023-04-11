@@ -1,42 +1,50 @@
-import React , { useState,useEffect }from 'react';
+import React , { useState,useEffect}from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ROUTES } from '../../app/Routes';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ArticlesList } from '../../components/ArticlesList/ArticlesList';
 import { loadPosts,selectLoadArticleSlice } from '../../components/ArticlesList/articlesListSlice';
 import './ArticlesTypes.css';
 
-export const ArticlesTypes=()=> {
+export const ArticlesTypes=({subredditName, defaultType})=> {
     const dispatch = useDispatch();
+    const {postType} = useParams();
     const navigate = useNavigate();
-    const [type,setType] = useState("best");
-
+    const [type,setType] = useState(defaultType);
     const articles = useSelector(selectLoadArticleSlice);
-    useEffect (() => {
-        if(type){
-            dispatch(loadPosts(type));
-        }
-    },[dispatch,type]);
 
-    const onClickHandler = (e) => {
-        e.preventDefault();
-        setType(e.target.value);
-        navigate(ROUTES.MainPage(e.target.value));
-    }
+    useEffect (() => {
+            dispatch(loadPosts({subredditName,type}));   
+    },[subredditName,type]);
+
+    useEffect (() => {
+        (postType? setType(postType) : setType(defaultType))
+    },[postType])
+
+    const onClickHandler = (event) => {
+        event.preventDefault();
+        if(!subredditName) {
+            navigate(ROUTES.MainPage(event.target.value));
+        } else {
+            setType(event.target.value)
+            navigate(`${event.target.value}`);
+        }
+    };
+    
     return(
         <>
         <ul className="navBar-container">
-            <li>
-                <button onClick={onClickHandler} value='hot'>Hot</button>
+            <li> 
+                <button onClick={onClickHandler} value='hot' >Hot</button>
             </li>
             <li>
-                <button onClick={onClickHandler} value='new'>New</button>
+                <button onClick={onClickHandler} value='new' >New</button>
             </li>
             <li className='button-top'>
-                <button onClick={onClickHandler} value='top'>Top</button>
+                <button onClick={onClickHandler} value='top' >Top</button>
             </li>
         </ul>
-        <ArticlesList articles={articles}/>
+        <ArticlesList articles={articles} subredditName={subredditName}/>
         </>
     );
 }

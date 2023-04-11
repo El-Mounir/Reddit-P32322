@@ -8,6 +8,15 @@ async () => {
         return response;
     }
 );
+
+export const changeSubscription = createAsyncThunk(
+    "subreddit/addRemoveMySubreddits",
+    async ({subscription,subreddit}) => {
+            const response = await Reddit.manageSubscriptions(subscription,subreddit);
+            return response;
+        }
+);
+
 export const loadMySubsSlice = createSlice({
     name: "subreddit",
     initialState: {
@@ -15,11 +24,7 @@ export const loadMySubsSlice = createSlice({
         isLoadingSubreddit: false,
         failedToLoadSubreddit: false,
     },
-    // reducers:{
-    //     resetState: (state) => {
-    //       state = {};
-    //     }
-    // },
+   
     extraReducers:{
         [loadMySubreddits.pending]: (state,action) =>{
             state.isLoadingSubreddit = true;
@@ -29,7 +34,7 @@ export const loadMySubsSlice = createSlice({
             const subreddits = action.payload;
             for (let subreddit in subreddits) {
                 console.log(subreddits[subreddit]);
-                state.result[subreddits[subreddit].redditID] = subreddits[subreddit];
+                state.result[subreddits[subreddit].name] = subreddits[subreddit];
             }
             state.isLoadingSubreddit= false;
             state.failedToLoadSubreddit= false;
@@ -38,10 +43,27 @@ export const loadMySubsSlice = createSlice({
             state.isLoadingSubreddit = false;
             state.failedToLoadSubreddit = true;
         },
+        [changeSubscription.pending]: (state,action) =>{
+            state.isLoadingSubreddit = true;
+            state.failedToLoadSubreddit = false;
+        },
+        [changeSubscription.fulfilled]: (state,action) =>{
+            const subreddits = action.payload;
+            state.result = {};
+            for (let subreddit in subreddits) {
+                console.log(subreddits[subreddit]);
+                state.result[subreddits[subreddit].name] = subreddits[subreddit];
+            }
+            state.isLoadingSubreddit= false;
+            state.failedToLoadSubreddit= false;
+        },
+        [changeSubscription.failed]: (state,action) =>{
+            state.isLoadingSubreddit = false;
+            state.failedToLoadSubreddit = true;
+        },
     }
 });
 
 export const selectloadMySubsSlice = (state)=> state.subreddit.result;
 export const isLoadingSubreddit = (state)=> state.subreddit.isLoadingSubreddit;
-// export const {resetState} = loadMySubsSlice.actions;
 export default loadMySubsSlice.reducer;

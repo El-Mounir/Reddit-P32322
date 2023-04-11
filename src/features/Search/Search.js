@@ -2,7 +2,7 @@ import React , { useRef , useState, useEffect }from 'react';
 import { ROUTES } from '../../app/Routes';
 import { useNavigate } from 'react-router-dom';
 import { loadSearchResultByName } from '../../components/SearchResult/searchResultSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import './Search.css';
 
 export const Search=()=> {

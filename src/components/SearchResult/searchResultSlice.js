@@ -1,13 +1,6 @@
 import { createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import { Reddit } from "../../app/RedditAPI";
 
-export const loadSearchResult = createAsyncThunk(
-    "search/loadSearchResult",
-async (searchTerm) => {
-        const response = await Reddit.searchSubreddits(searchTerm)
-        return response;
-    }
-);
 export const loadSearchResultByName = createAsyncThunk(
     "search/loadSearchResultByName",
 async (searchTerm) => {
@@ -33,19 +26,6 @@ export const searchResultSlice = createSlice({
             state.failedToLoadResult = false;
         },
         [loadSearchResultByName.failed]: (state,action) =>{
-            state.isLoadingResult = false;
-            state.failedToLoadResult = true;
-        },
-        [loadSearchResult.pending]: (state,action) =>{
-            state.isLoadingResult = true;
-            state.failedToLoadResult = false;
-        },
-        [loadSearchResult.fulfilled]: (state,action) =>{
-            state.result = action.payload;
-            state.isLoadingResult = false;
-            state.failedToLoadResult = false;
-        },
-        [loadSearchResult.failed]: (state,action) =>{
             state.isLoadingResult = false;
             state.failedToLoadResult = true;
         },

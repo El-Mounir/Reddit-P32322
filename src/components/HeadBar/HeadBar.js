@@ -1,12 +1,9 @@
 import React, { useEffect} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
-import { Link } from "react-router-dom";
-import { ROUTES } from '../../app/Routes';
+import { Link,useNavigate} from "react-router-dom";
 import { toolKeys,UserNameLoader } from '../../app/utilities';
 import {Search} from '../../features/Search/Search';
-import { switchType } from '../MainPage/mainPageSlice';
 import { loadUserIdentity,selectHeadBar,isLoadingUser } from './headBarSlice';
-import { loadPosts } from '../ArticlesList/articlesListSlice';
 import './HeadBar.css';
 import {ReactComponent as RedditLogo} from './reddit.svg';
 
@@ -14,21 +11,27 @@ export const HeadBar =()=> {
     const dispatch = useDispatch();
     const loadingIdentity = useSelector(isLoadingUser);
     const userIdentity = useSelector(selectHeadBar);
+    const navigate= useNavigate();
 
     useEffect(()=>{
         if (!Object.keys(userIdentity).length) {
           dispatch(loadUserIdentity());
         }
     },[dispatch,userIdentity]) 
+    
+   
+    const onClickHandler = (event) => {
+        event.preventDefault();
+        navigate("/")
+    }    
 
-    const onClickHandler = () => {
-        dispatch(loadPosts("best"));
-    }
+
+   
     return(
         <header>
             <div className="header-wrapper">
                 <div className='home-container' onClick={onClickHandler}>
-                    <Link to="/best" className="title">
+                    <Link to='/' className="title">
                         <RedditLogo/>
                         <h4>RedditEclair</h4>  
                     </Link>

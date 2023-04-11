@@ -8,6 +8,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(227,216,202);
 }
+button:hover {
+  cursor: pointer;
+}
 p {
   font-size: .75rem;
   color: rgb(133, 120, 120);
@@ -23,6 +26,7 @@ h4,h5 {
 .side-container {
   width: 30%;
   justify-content: flex-end;
+  flex-direction: column-reverse;
   margin-left: 5rem;
 }
 .main-container, .side-container {
@@ -32,5 +36,14 @@ h4,h5 {
 .mainpage-wrapper {   
   display: flex;
   justify-content: center;
-  flex-direction: column;
+}
+.main-banner {
+  display: flex;
+  justify-content: center;
+}
+.upToTop {
+  max-height: 1.2rem;
+  max-width: 3rem;
+  position: fixed;
+  bottom: 1%;
 }

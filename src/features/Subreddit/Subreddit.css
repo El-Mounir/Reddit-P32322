@@ -6,6 +6,9 @@
     background-color: rgb(36, 33, 33);
     border-top: thin solid rgb(133, 120, 120);
   }
+  .subreddit_img_container:hover,.name_container:hover {
+    cursor: pointer;
+  }
   .subreddit_img_container {
     display: flex;
     align-items: center;
@@ -20,12 +23,18 @@
     object-fit: cover;
   }
   .add_button {
+    max-width: 5rem;
+    width: 100%;
     margin-left: auto;
     margin-right: .2rem;
-    border-radius: 50%;
+    border-radius: 5%;
+    align-self: center;
   }
   .reddit_name {
     font-size: .75rem;
+  }
+  .reddit_name:hover {
+    text-decoration: underline;
   }
   .reddit_name, .member_count {
      margin: 0;
@@ -33,3 +42,10 @@
   .name_container {
     margin : 1rem 0;
   }
+  .subreddit_nav {
+    display:inline-flex;
+    width: 100%;
+    gap: 2rem;
+    text-decoration: none;
+  }
+ 

@@ -1,12 +1,8 @@
 export const ROUTES = {
-    MainPage: () => `/`,
-    MainPage :(postType) => `/${postType}`,
+    MainPage: (postType) => `/${postType}`,
+    MainPageSubreddit: (subreddit) => `/r/${subreddit}`,
     searchResult: (searchQuery) => `/search/${searchQuery}`,
-    // ArticlesList: (subreddit) => `/r${subreddit}`,
-    // quizzesRoute: () => "/quizzes",
-    // newTopicRoute: () => "/topics/new",
-    // topicRoute: (id) => `/topics/${id}`,
-    // topicsRoute: () => "/topics",
+    ArticleComments: (subreddit,commentID) => `/r/${subreddit}/comments/${commentID}`
   };
   
 

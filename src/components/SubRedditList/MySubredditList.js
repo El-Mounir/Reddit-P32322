@@ -9,10 +9,10 @@ export const MySubredditList = () => {
     const subreddits = useSelector(selectloadMySubsSlice);
     
     useEffect(()=>{
-        if (Object.values(subreddits).length === 0) {
+        if (Object.keys(subreddits).length === 0) {
           dispatch(loadMySubreddits());
         }
-       },[dispatch,subreddits]) 
+       },[subreddits]) 
 
     return(
         <section className="Mysubreddits-container">
@@ -20,7 +20,7 @@ export const MySubredditList = () => {
                 <ul className='subreddit_container'>
                     <h4 className="title_subreddits">Your Subreddits</h4>
                     {Object.values(subreddits).map((subreddit) => (                 
-                        <Subreddit unit={subreddit}/>           
+                        <Subreddit unit={subreddit} key={subreddit.redditID}/>           
                     ))}
                 </ul>
           
