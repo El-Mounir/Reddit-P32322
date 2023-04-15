@@ -1,0 +1,19 @@
+.mainpage-wrapper {
+    display:flex;
+    justify-content: center;
+}
+.mainpage-container {
+    display: inline-flex;
+    gap: 4rem;
+}
+.comments-container {
+    display: flex;
+    flex-direction: column;
+    padding: .3rem 0;
+    align-items: center;
+    list-style: none; 
+    border:thin solid rgb(133, 120, 120);
+    background-color: rgb(36, 33, 33);
+    border-radius: .5rem;
+    max-width: 40rem;
+}

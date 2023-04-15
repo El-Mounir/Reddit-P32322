@@ -1,6 +1,7 @@
 import React , { useState,useEffect}from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ROUTES } from '../../app/Routes';
+import { ArticleLoader } from '../../app/utilities';
 import { useNavigate, useParams } from "react-router-dom";
 import { ArticlesList } from '../../components/ArticlesList/ArticlesList';
 import { loadPosts,selectLoadArticleSlice } from '../../components/ArticlesList/articlesListSlice';
@@ -34,10 +35,10 @@ export const ArticlesTypes=({subredditName, defaultType})=> {
     return(
         <>
         <ul className="navBar-container">
-            <li> 
+            <li className='button-hot'> 
                 <button onClick={onClickHandler} value='hot' >Hot</button>
             </li>
-            <li>
+            <li className='button-new'>
                 <button onClick={onClickHandler} value='new' >New</button>
             </li>
             <li className='button-top'>

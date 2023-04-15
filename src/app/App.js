@@ -27,7 +27,7 @@ function App() {
           <Route path="r/:subreddit/*" element= {<MainPageSubreddit />}>
             <Route path=":postType"/>
           </Route>
-          {/* <Route path="/r/:subreddit/:commentID" element={<ArticleComments />}/> */}
+          <Route path="/r/:subreddit/comments/:commentID" element={<ArticleComments />}/>
           <Route path ='/search/:searchQuery' element= {<SearchResult/>}/>
       </Routes>
     </Router>

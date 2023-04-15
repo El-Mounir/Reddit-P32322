@@ -29,7 +29,7 @@ export const ArticlesList=({articles,subredditName})=> {
                     <Article article={article} key={article.postID}/>
                 ))}
             </div>
-            {(window.scrollY === 0 ) ? <button className='addmore' onClick={onClickHandler} style={{visibility:"hidden"}}>More</button> : <button className='addmore' onClick={onClickHandler} style={{visibility:"visible"}}>More</button>}
+            <button className='addmore' onClick={onClickHandler}>More</button> 
         </section>
     );
 }

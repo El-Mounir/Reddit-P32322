@@ -5,7 +5,7 @@ import { toolKeys,UserNameLoader } from '../../app/utilities';
 import {Search} from '../../features/Search/Search';
 import { loadUserIdentity,selectHeadBar,isLoadingUser } from './headBarSlice';
 import './HeadBar.css';
-import {ReactComponent as RedditLogo} from './reddit.svg';
+import {ReactComponent as RedditLogo} from '../../app/resources/reddit.svg';
 
 export const HeadBar =()=> {  
     const dispatch = useDispatch();
@@ -25,8 +25,6 @@ export const HeadBar =()=> {
         navigate("/")
     }    
 
-
-   
     return(
         <header>
             <div className="header-wrapper">
@@ -40,7 +38,7 @@ export const HeadBar =()=> {
                 <div className='user-container'>
                     {loadingIdentity? <UserNameLoader/> :
                     <>
-                        <img className='user-img' src={Object.keys(userIdentity).length ? toolKeys.sliceImageIcon(Object.values(userIdentity)[0].icon_img) :""}/>
+                        <img className='user-img' src={Object.keys(userIdentity).length ? toolKeys.sliceImageIcon(Object.values(userIdentity)[0].icon_img) : '../../app/resources/account_circle.png'}/>
                         <h5 className='userName'>{Object.keys(userIdentity).length ? (Object.values(userIdentity)[0].user_name) :""}</h5>
                    </>
                     }

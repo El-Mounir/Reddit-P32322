@@ -1,0 +1,27 @@
+.comment-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.upper-container ,.bottom-container{
+    display: inline-flex;
+    gap:2rem;
+}
+.body-container {
+    display: flex;
+}
+.commentBody,.upper-container,.bottom-container{
+    padding: 0 1rem;
+}
+.author-name {
+    font-weight: bold;
+    font-size: .8rem;
+    color:darkcyan;
+}
+.commentBody{
+    font-size: .75rem;
+    color:rgb(227,216,202);
+}
+.replytocomment {
+    color:rgb(133, 120, 120)
+}

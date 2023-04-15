@@ -56,13 +56,16 @@ export const Subreddit =({unit})=> {
             {loadingResult || loadingSubreddit ? <ResultLoader/> :
             <>
                 <div className='subreddit_img_container' onClick={onClickHandler}>
-                    <img src={unit.icon_image} alt='' className='reddit_img'/>
+                    <img src={unit.icon_image ? unit.icon_image : './no-photo-available.jpg'} alt='' className='reddit_img'/>
                 </div>  
                 <div className='name_container' onClick={onClickHandler}>
                     <h5 className='reddit_name'>r/{unit.name}</h5>
                     <p className='member_count'>{toolKeys.convertNumbers(unit.subscriber_count)} Members</p>
                 </div>
-                {inMySubreddits(mySubreddits,unit) ? <button className='add_button' onClick={removeSubreddit}>remove</button> : <button className='add_button' onClick={addSubreddit}>add</button>}
+                {inMySubreddits(mySubreddits,unit) ? 
+                    <button className='add_button' onClick={removeSubreddit}><span>remove</span></button> :
+                    <button className='add_button' onClick={addSubreddit}><span>add</span></button>
+                }
             </>
             }      
         </li> 

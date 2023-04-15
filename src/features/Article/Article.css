@@ -26,15 +26,20 @@
   justify-content: space-between;
 }
 .votes {
-  padding: 0 .1rem;
+  padding: 0 0.1rem;
   font-weight: bold;
   justify-items: flex-start;
-  display:inline-flex;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.4rem;
+  gap: 0.3rem;
 }
 .comments_box {
   justify-content: end;
   padding-right: 1rem;
   font-weight: bold;
+  align-items: center;
+  gap:.2rem;
 }
 .post_title {
   margin: 0 .1rem .8rem .1rem;
@@ -79,4 +84,26 @@
 }
 .youtube_content:hover,.content_video:hover {
   cursor:auto
+}
+.uparrow,.downarrow {
+  fill:rgb(227,216,202);
+  max-width: 20px;
+  max-height: 20px;
+}
+.downarrowActive,.uparrowActive {
+  max-width: 20px;
+  max-height: 20px;
+}
+.uparrow:hover, .uparrowActive {
+  fill:cornflowerblue;
+}
+.downarrow:hover, .downarrowActive {
+  fill:crimson;
+}
+.commentIcon {
+  fill:rgb(227,216,202);
+}
+
+.downarrow:hover,.uparrow:hover,.comments_box,.downarrowActive:hover,.uparrowActive:hover {
+  cursor: pointer;
 }

@@ -10,7 +10,7 @@ export const SubredditBanner = ({subreddit}) => {
          <div className='banner-wrapper'>
           <img src={toolKeys.sliceImageIcon(subreddit.background_img)} className='banner_img'/>
           <div className='subreddit_banner'>
-            <Subreddit unit={subreddit} className='subreddit_unit'/> 
+            <Subreddit unit={subreddit}/> 
           </div>  
         </div> 
     )

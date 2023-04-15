@@ -36,5 +36,5 @@ export const headBarSlice = createSlice({
 });
 
 export const selectHeadBar = (state)=> state.user.identity;
-export const isLoadingUser = (state)=> state.subreddit.isLoadingUser;
+export const isLoadingUser = (state)=> state.user.isLoadingUser;
 export default headBarSlice.reducer;

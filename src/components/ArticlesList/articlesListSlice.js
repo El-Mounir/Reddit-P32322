@@ -17,6 +17,14 @@ export const loadMorePosts = createAsyncThunk(
     }  
 );
 
+export const sendVotes = createAsyncThunk(
+    "post/sendVotes",
+    async ({id,vote}) => {
+        const response = await Reddit.postVotes(id,vote);
+        return response;
+    }  
+);
+
 export const loadArticleSlice = createSlice({
     name: "post",
     initialState: {
@@ -64,5 +72,5 @@ export const loadArticleSlice = createSlice({
 });
 
 export const selectLoadArticleSlice = (state)=> state.post.type;
-export const isLoadingPost= (state)=> state.search.isLoadingPost;
+export const isLoadingPost= (state)=> state.post.isLoadingPost;
 export default loadArticleSlice.reducer;

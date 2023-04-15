@@ -33,7 +33,7 @@ export const MainPageSubreddit = () => {
         <div className='mainpage-wrapper'>
             <Page className='main'>
                 <div className='main-container'>
-                   <ArticlesTypes subredditName= {toolKeys.getSelectedSubreddit(searchResults,mySubreddits,subreddit).name} defaultType= {"hot"}/> :
+                   <ArticlesTypes subredditName= {toolKeys.getSelectedSubreddit(searchResults,mySubreddits,subreddit).name} defaultType= {"hot"}/>
                 </div>  
                 <div className='side-container'>
                     <button className='upToTop' onClick={onClickHandler}>Up</button>

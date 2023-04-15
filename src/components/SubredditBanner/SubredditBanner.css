@@ -1,17 +1,17 @@
-.banner-wrapper {
-   justify-content: center;
-   width:100%;
-}
+
 .banner_img {
     width:100%;
     height: 8rem;
     object-fit: cover;
+    grid-area: 1/span 3;
 }
 .subreddit_banner {
     justify-content: center;
     display: flex;
-    padding-right: 50rem;
+    grid-area: 2/span 3;
 }
-.subreddit_unit {
-    max-width: 40%;
+
+.banner-wrapper {
+    display: grid;
+    grid-template: 1fr 4rem/1fr 60% 1fr;       
 }

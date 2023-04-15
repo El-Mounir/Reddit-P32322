@@ -43,7 +43,9 @@ export const toolKeys = {
 
         for (let t=0; t < inSeconds.length;t++) {
             if (( creationTime >= inSeconds[t])  && ( creationTime < inSeconds[t+1])) {        
-                ((creationTime - inSeconds[t] ) == 0 ? creationTime = `${Math.floor(creationTime/inSeconds[t])} ${inUnit[t]}` : creationTime = `${Math.floor(creationTime/inSeconds[t])} ${inUnit[t]}s`);
+                ((creationTime - inSeconds[t] ) == 0 ? 
+                creationTime = `${Math.floor(creationTime/inSeconds[t])} ${inUnit[t]}` : 
+                creationTime = `${Math.floor(creationTime/inSeconds[t])} ${inUnit[t]}s`);
 
             return creationTime;
             }          
@@ -106,16 +108,16 @@ export const UserNameLoader = () => (
 export const ArticleLoader = () => (
     <ContentLoader 
         speed={2}
-        width={638}
+        width={640}
         height={570}
         viewBox="0 0 640 570"
         backgroundColor="#481f16"
         foregroundColor="#e3d8ca"
     >
-        <rect x="9" y="18" rx="2" ry="2" width="361" height="27" /> 
-        <rect x="10" y="540" rx="2" ry="2" width="64" height="19" /> 
-        <rect x="0" y="60" rx="2" ry="2" width="600" height="461" /> 
-        <rect x="192" y="541" rx="2" ry="2" width="140" height="18" /> 
+        <rect x="34" y="18" rx="2" ry="2" width="361" height="27" /> 
+        <rect x="48" y="538" rx="2" ry="2" width="64" height="19" /> 
+        <rect x="33" y="58" rx="2" ry="2" width="570" height="461" /> 
+        <rect x="249" y="541" rx="2" ry="2" width="140" height="18" /> 
         <rect x="505" y="542" rx="2" ry="2" width="85" height="17" />
   </ContentLoader>
 )
