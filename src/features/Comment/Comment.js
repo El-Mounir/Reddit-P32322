@@ -6,20 +6,12 @@ import './Comment.css';
 
 
 export const Comment=({comment})=> {
-
-    // const comment ={author:"TimidEngineer",
-    // commentID:"jgbvh06",
-    // time:1681540332,
-    // votes:480,
-    // vote:null,
-    // comment:"I would. Your guild lied to you. Why would you keep helping them get loot?",
-    // }
     
     return (
         <li key={comment.commentID} className='comment-wrapper'>
             <div className='upper-container'>
               <p className='author-name'>{comment.author}</p>
-              <p>{toolKeys.epochConverter(comment.time)} ago</p>
+              {toolKeys.epochConverter(comment.time) ? <p>{toolKeys.epochConverter(comment.time)} ago</p> : <p>just now</p>}
             </div>
             <div className= 'body-container'>
                 <p className='commentBody'>{comment.comment}</p>
@@ -27,11 +19,11 @@ export const Comment=({comment})=> {
             <div className='bottom-container'>
                 <div className='votes'>
                     <UpArrow className={comment.vote? "uparrowActive" : "uparrow" }/>
-                        <p>{comment.votes}</p>
+                        <p>{comment.votes ? toolKeys.convertNumbers(comment.votes) : ""}</p>
                     <DownArrow className={(comment.vote === false)? "downarrowActive" : "downarrow" }/>
                 </div>
-                <p>reply</p>
-            </div>
+                <p>Reply</p>
+            </div>      
         </li>
     )
 }

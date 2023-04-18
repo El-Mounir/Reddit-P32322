@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { Subreddit } from "../../features/Subreddit/Subreddit";
-import { selectloadMySubsSlice, loadMySubreddits } from "./mySubredditListSlice";
+import { toolKeys,SubredditLoader} from "../../app/utilities";
+import { selectloadMySubsSlice, loadMySubreddits,isLoadingSubreddit } from "./mySubredditListSlice";
 import { useSelector, useDispatch } from 'react-redux';
 import './MySubredditList.css';
 
 export const MySubredditList = () => {
     const dispatch = useDispatch();
     const subreddits = useSelector(selectloadMySubsSlice);
+    const loadingSubreddit= useSelector(isLoadingSubreddit);
     
     useEffect(()=>{
         if (Object.keys(subreddits).length === 0) {
@@ -16,14 +18,16 @@ export const MySubredditList = () => {
 
     return(
         <section className="Mysubreddits-container">
-          
-                <ul className='subreddit_container'>
-                    <h4 className="title_subreddits">Your Subreddits</h4>
-                    {Object.values(subreddits).map((subreddit) => (                 
-                        <Subreddit unit={subreddit} key={subreddit.redditID}/>           
-                    ))}
-                </ul>
-          
+            <ul className='subreddit_container'>
+                <h4 className="title_subreddits">Your Subreddits</h4>
+                {loadingSubreddit ? toolKeys.countArray(5).map((count) => <SubredditLoader key={`Subredditloader ${count}`}/>) :
+                <>
+                {Object.values(subreddits).map((subreddit) => (                 
+                    <Subreddit unit={subreddit} key={subreddit.redditID}/>           
+                ))}
+                </>
+                }
+            </ul>
         </section>
     ) 
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useEffect,useState } from 'react';
-
 import { useDispatch } from 'react-redux';
 import { Article } from '../../features/Article/Article';
 import { loadMorePosts } from './articlesListSlice';
@@ -13,7 +12,7 @@ export const ArticlesList=({articles,subredditName})=> {
 
     useEffect(() => {
         if (afterID) {
-            dispatch(loadMorePosts({subredditName:subredditName, type:Object.values(articles)[0].type, afterID: Object.values(articles)[articlesLength-1].after}))
+            dispatch(loadMorePosts({subredditName:subredditName, type:Object.values(articles)[0].type, afterID: afterID}))
         }
     },[afterID]);
 

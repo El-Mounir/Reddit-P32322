@@ -8,11 +8,19 @@ export const getComments = createAsyncThunk(
             return response;
     }   
 );
+export const sendComments = createAsyncThunk(
+    "comment/sendComments",
+    async ({comment,postID}) => {
+            const response = await Reddit.sendComments(comment,postID);
+            return response;
+    }   
+);
 
 export const loadCommentSlice = createSlice({
     name: "comment",
     initialState: {
         comments: [],
+        newcomment :[],
         isLoadingComment: false,
         failedToLoadComment: false,
     },
@@ -27,6 +35,21 @@ export const loadCommentSlice = createSlice({
             state.failedToLoadComment = false;
         },
         [getComments.failed]: (state,action) =>{
+            state.isLoadingComment = false;
+            state.failedToLoadComment = true;
+        },
+        [sendComments.pending]: (state,action) =>{
+            state.isLoadingComment = true;
+            state.failedToLoadComment = false;
+        },
+        [sendComments.fulfilled]: (state,action) =>{
+            state.newcomment = state.comments;
+            console.log(action.payload)
+            state.newcomment.push(action.payload);
+            state.isLoadingComment = false;
+            state.failedToLoadComment = false;
+        },
+        [sendComments.failed]: (state,action) =>{
             state.isLoadingComment = false;
             state.failedToLoadComment = true;
         },

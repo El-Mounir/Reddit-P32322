@@ -57,7 +57,6 @@ export const loadArticleSlice = createSlice({
         },
         [loadMorePosts.fulfilled]: (state,action) =>{
             const newArticles = action.payload;
-            console.log(newArticles);
             for (let article in newArticles) {
                 state.type[newArticles[article].postID] = newArticles[article];
             }

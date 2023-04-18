@@ -51,7 +51,6 @@ export const loadMySubsSlice = createSlice({
             const subreddits = action.payload;
             state.result = {};
             for (let subreddit in subreddits) {
-                console.log(subreddits[subreddit]);
                 state.result[subreddits[subreddit].name] = subreddits[subreddit];
             }
             state.isLoadingSubreddit= false;

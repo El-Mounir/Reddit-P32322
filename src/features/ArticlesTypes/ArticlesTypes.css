@@ -11,10 +11,16 @@
     width: 100%;
     max-width: 40rem;
 }
-.button {
+.type {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     max-width: 5rem;
+    min-width: 3rem;
     height: 2rem;
     width: 100%;
+    margin-left: auto;
+    margin-right: .2rem;
     border-radius: 1rem;
     align-self: center;
     background-color: rgb(227,216,202);

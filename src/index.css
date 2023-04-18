@@ -38,12 +38,20 @@ h4,h5 {
   justify-content: center;
 }
 .upToTop {
-  max-height: 1.2rem;
-  max-width: 3rem;
+  min-height: 2rem;
+  max-width: 5rem;
+  min-width: 3rem;
   position: fixed;
   bottom: 1%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  background-color: rgb(36, 33, 33);
+  color: rgb(227,216,202);
 }
 span {
   color:rgb(36, 33, 33);
   font-weight: bold;
+  font-size: .7rem;
 }

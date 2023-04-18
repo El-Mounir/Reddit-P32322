@@ -17,7 +17,7 @@ export const HeadBar =()=> {
         if (!Object.keys(userIdentity).length) {
           dispatch(loadUserIdentity());
         }
-    },[dispatch,userIdentity]) 
+    },[userIdentity]) 
     
    
     const onClickHandler = (event) => {

@@ -4,27 +4,28 @@ import ContentLoader from "react-content-loader"
 export const toolKeys = {
 
     convertNumbers(num) {
+        let isNegatif;
         if (num === null) {
             return "0";
         }
-        const number= num.toString();
-        if( number.length >= 7) {
-            switch (number.slice(-6,-5)) {
-            case ("0"):
-                return `${number.slice(0,-6)}m`;
-            default:
-                return `${number.slice(0,-6)}.${number.slice(-6,-5)}m`;
-            }
-        } else if(number.length >=4 ) {
-            switch (number.slice(-3,-2)) {
+        let number= num.toString();
+        (number[0] === "-" ? isNegatif = true && (number = number.slice(1)) : isNegatif = false);
+            if( number.length >= 7) {
+                switch (number.slice(-6,-5)) {
                 case ("0"):
-                    return `${number.slice(0,-3)}k`;
+                    return (isNegatif ? `-${number.slice(0,-6)}m` : `${number.slice(0,-6)}m`);
                 default:
-                    return `${number.slice(0,-3)}.${number.slice(-3,-2)}k`;
+                    return (isNegatif ? `-${number.slice(0,-6)}.${number.slice(-6,-5)}m` : `${number.slice(0,-6)}.${number.slice(-6,-5)}m`);
+                }
+            } else if(number.length >=4 ) {
+                switch (number.slice(-3,-2)) {
+                    case ("0"):
+                        return (isNegatif ? `-${number.slice(0,-3)}k`: `${number.slice(0,-3)}k`);
+                    default:
+                        return (isNegatif ? `-${number.slice(0,-3)}.${number.slice(-3,-2)}k` : `${number.slice(0,-3)}.${number.slice(-3,-2)}k`);
+                }
             }
-        }
-        return number;
-    
+            return (isNegatif ? `-${number}` : `${number}`);
     },
     sliceImageIcon(image) {  
         if(image.match(/([^&]*)png/)) {
@@ -51,12 +52,6 @@ export const toolKeys = {
             }          
         }
     },
-    addMorelists(list1,list2) {
-        for (let item in list2) {
-            list1[item] = list2[item]
-        }
-        return list1
-    },
     getArticleType() {
         return  window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
     },
@@ -75,6 +70,14 @@ export const toolKeys = {
         } else {
             return mySubreddit;
         }
+    },
+    countArray(number) {
+        let array = []
+        while (number >0) {
+            array.push(number);
+            number--;
+        }
+        return array;
     }
 }
 
@@ -84,8 +87,8 @@ export const ResultLoader = () => (
         width={638}
         height={64}
         viewBox="0 0 638 64"
-        backgroundColor="#481f16"
-        foregroundColor="#e3d8ca"
+        backgroundColor="#e3d8ca"
+        foregroundColor="#481f16"
         >
         <rect x="62" y="29" rx="3" ry="3" width="88" height="6" /> 
         <rect x="61" y="13" rx="3" ry="3" width="52" height="6" /> 
@@ -98,8 +101,8 @@ export const UserNameLoader = () => (
         width={120}
         height={40}
         viewBox="0 0 120 40"
-        backgroundColor="#f3f3f3"
-        foregroundColor="#e3d8ca"
+        backgroundColor="#e3d8ca"
+        foregroundColor="#481f16"
     >
         <rect x="54" y="15" rx="3" ry="3" width="52" height="6" /> 
         <circle cx="24" cy="18" r="17" />
@@ -111,8 +114,8 @@ export const ArticleLoader = () => (
         width={640}
         height={570}
         viewBox="0 0 640 570"
-        backgroundColor="#481f16"
-        foregroundColor="#e3d8ca"
+        backgroundColor="#e3d8ca"
+        foregroundColor="#481f16"
     >
         <rect x="34" y="18" rx="2" ry="2" width="361" height="27" /> 
         <rect x="48" y="538" rx="2" ry="2" width="64" height="19" /> 
@@ -120,6 +123,40 @@ export const ArticleLoader = () => (
         <rect x="249" y="541" rx="2" ry="2" width="140" height="18" /> 
         <rect x="505" y="542" rx="2" ry="2" width="85" height="17" />
   </ContentLoader>
+)
+export const CommentLoader = () => (
+    <ContentLoader 
+        speed={2}
+        width={480}
+        height={123}
+        viewBox="0 0 480 123"
+        backgroundColor="#e3d8ca"
+        foregroundColor="#481f16"
+    >
+        <rect x="28" y="7" rx="2" ry="2" width="82" height="18" /> 
+        <rect x="48" y="538" rx="2" ry="2" width="64" height="19" /> 
+        <rect x="249" y="541" rx="2" ry="2" width="140" height="18" /> 
+        <rect x="505" y="542" rx="2" ry="2" width="85" height="17" /> 
+        <rect x="31" y="41" rx="2" ry="2" width="287" height="48" /> 
+        <rect x="110" y="100" rx="2" ry="2" width="51" height="11" /> 
+        <rect x="34" y="100" rx="2" ry="2" width="59" height="13" />
+  </ContentLoader>
+)
+export const SubredditLoader = () => (
+    <ContentLoader 
+        speed={2}
+        width={312}
+        height={65}
+        viewBox="0 0 312 65"
+        backgroundColor="#e3d8ca"
+        foregroundColor="#481f16"
+    >
+        <rect x="76" y="39" rx="3" ry="3" width="88" height="6" /> 
+        <rect x="78" y="23" rx="3" ry="3" width="52" height="6" /> 
+        <rect x="0" y="72" rx="3" ry="3" width="380" height="6" /> 
+        <rect x="0" y="88" rx="3" ry="3" width="178" height="6" /> 
+        <circle cx="41" cy="33" r="20" />
+    </ContentLoader>
 )
 
 

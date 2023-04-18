@@ -17,8 +17,8 @@ export const Search=()=> {
         }
     },[dispatch,searchTerm]);
 
-    const onSearchHandler = (e) => {
-        e.preventDefault();
+    const onSearchHandler = (event) => {
+        event.preventDefault();
         const searchQuery = new URLSearchParams({
           q: searchInputRef.current.value
         }).toString();
