@@ -9,6 +9,7 @@ import { selectLoadCommentSlice,getComments ,sendComments,isLoadingComment } fro
 import { Comment } from '../../features/Comment/Comment';
 import { Page } from '../Page/Page';
 import './ArticleComments.css';
+import { UpButton } from '../UpButton/UpButton';
 
 export const ArticleComments = () => {
     window.scroll(0,0);
@@ -30,11 +31,6 @@ export const ArticleComments = () => {
         setComment('');
     };
    
-
-    const handleOnClick = () => {
-        window.scroll(0,0);
-    }
-
     return(
         <section className='mainpage-wrapper'>
             <Page className="comment">
@@ -49,7 +45,7 @@ export const ArticleComments = () => {
                                 </button>
                             </div>
                         </form>
-                        <button className='upToTop topComment' onClick={handleOnClick}>Up</button>
+                        <UpButton/>
                     </div>
                     <ul className='comments-container'> 
                     <h4 className="comment-title">Comments</h4>

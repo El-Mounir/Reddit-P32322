@@ -22,6 +22,11 @@
   display:flex;
   justify-content: center;
 }
+.comment-active {
+  padding-bottom: .8rem;
+  display:flex;
+  justify-content: center;
+}
 .article_buttom {
   justify-content: space-between;
 }
@@ -69,11 +74,24 @@
   display: -webkit-box;
   padding: 0 1rem;
   text-overflow: ellipsis;
-  font-size: 1.1rem;
   overflow: hidden;
   max-height: 25rem;
   -webkit-line-clamp: 8;
   -webkit-box-orient: vertical;
+}
+.comment-post {
+  padding: 0 1rem;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+}
+.content_paragraph > p, .comment-post > p {
+  font-size: .9rem;
+}
+.content_paragraph * > a , .comment-post * > a{
+  color:rgb(5, 141, 66);
+}
+.content_paragraph *, .comment-post *{
+  color: rgb(227,216,202);
 }
 .youtube_content {
   width: 100%;

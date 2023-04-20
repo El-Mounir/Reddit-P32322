@@ -4,7 +4,7 @@ import { Reddit } from "../../app/RedditAPI";
 export const loadSearchResultByName = createAsyncThunk(
     "search/loadSearchResultByName",
 async (searchTerm) => {
-        const response = await Reddit.searchSubredditsName(searchTerm)
+        const response = await Reddit.getSubreddits(searchTerm)
         return response;
     }
 );

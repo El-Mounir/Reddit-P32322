@@ -7,11 +7,15 @@
 }
 .subreddit_banner {
     justify-content: center;
-    display: flex;
-    grid-area: 2/span 3;
-}
-
-.banner-wrapper {
     display: grid;
-    grid-template: 1fr 4rem/1fr 60% 1fr;       
+    grid-template-columns: 1fr 3fr 1fr;
+    background-color: rgb(36, 33, 33);
+}
+.banner-wrapper {
+    display: flex;
+    flex-direction: column;       
+}
+.subreddit_banner > li{
+    border-top: none;
+    grid-area: 1/2;
 }

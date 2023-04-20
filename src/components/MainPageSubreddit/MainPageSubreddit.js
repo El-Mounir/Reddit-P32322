@@ -8,16 +8,13 @@ import { MySubredditList } from '../SubredditList/MySubredditList';
 import { SubredditBanner } from '../SubredditBanner/SubredditBanner';
 import { selectSearchResult } from '../SearchResult/searchResultSlice';
 import { selectloadMySubsSlice } from '../SubredditList/mySubredditListSlice';
+import { UpButton } from '../UpButton/UpButton';
 
 export const MainPageSubreddit = () => {
     window.scroll(0,0);
     const {subreddit,postType} = useParams();
     const searchResults = useSelector(selectSearchResult);
     const mySubreddits = useSelector(selectloadMySubsSlice);
-   
-    const onClickHandler = () => {
-        window.scroll(0,0);
-    };
     
     return (  
         <>
@@ -32,7 +29,7 @@ export const MainPageSubreddit = () => {
                     toolKeys.getSelectedSubreddit(searchResults,mySubreddits,subreddit).name : JSON.parse(sessionStorage.subreddit).name} defaultType= {postType ? postType : "hot"}/>
                 </div>  
                 <div className='side-container'>
-                    <button className='upToTop' onClick={onClickHandler}>Up</button>
+                    <UpButton/>
                     <MySubredditList/>
                 </div>
             </Page>

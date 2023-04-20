@@ -4,7 +4,7 @@ import { Reddit } from "../../app/RedditAPI";
 export const loadMySubreddits= createAsyncThunk(
     "subreddit/loadMySubreddits",
 async () => {
-        const response = await Reddit.getMySubreddits()
+        const response = await Reddit.getSubreddits()
         return response;
     }
 );
@@ -33,7 +33,6 @@ export const loadMySubsSlice = createSlice({
         [loadMySubreddits.fulfilled]: (state,action) =>{
             const subreddits = action.payload;
             for (let subreddit in subreddits) {
-                console.log(subreddits[subreddit]);
                 state.result[subreddits[subreddit].name] = subreddits[subreddit];
             }
             state.isLoadingSubreddit= false;

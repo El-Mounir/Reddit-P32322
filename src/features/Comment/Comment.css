@@ -18,9 +18,12 @@
     font-size: .8rem;
     color:darkcyan;
 }
-.commentBody{
+.commentBody * {
     font-size: .75rem;
     color:rgb(227,216,202);
+}
+.commentBody * > a {
+    color:rgb(5, 141, 66);
 }
 .replytocomment {
     color:rgb(133, 120, 120)

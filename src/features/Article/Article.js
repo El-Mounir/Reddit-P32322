@@ -1,5 +1,5 @@
 import React , {useState} from 'react';
-import { Link   } from "react-router-dom";
+import { Link, useParams   } from "react-router-dom";
 import { useSelector,useDispatch } from 'react-redux';
 import { ArticleLoader, toolKeys } from '../../app/utilities';
 import { isLoadingPost,sendVotes } from '../../components/ArticlesList/articlesListSlice';
@@ -7,9 +7,11 @@ import { ROUTES } from '../../app/Routes';
 import {ReactComponent as UpArrow } from '../../app/resources/upArrow.svg';
 import {ReactComponent as DownArrow} from '../../app/resources/downArrow.svg';
 import { ReactComponent as Comment } from '../../app/resources/comment.svg';
+import ReactMarkdown from 'react-markdown';
 import './Article.css';
 
 export const Article=({article})=> {
+    const { commentID } = useParams();
     sessionStorage.setItem("article", JSON.stringify(article));
     const dispatch = useDispatch();
     const loadingPost= useSelector(isLoadingPost);
@@ -57,13 +59,13 @@ export const Article=({article})=> {
                     </div> 
                 </Link>
                 { article.postType === "link" || article.postType === "self" || !article.postType ? 
-                <div className='content_text' id="text_container">
-                    {article.postType === "link"? <a href={article.url} className="content_link">{article.url}</a> : <p className='content_paragraph' >{article.selftext.replaceAll(".", ".\n")}</p>}
+                <div className={commentID ? 'comment-active' :'content_text'} id="text_container">
+                    {article.postType === "link"? <a href={article.url} className="content_link">{article.url}</a> : <ReactMarkdown className={commentID ? 'comment-post' : 'content_paragraph'}>{article.selftext}</ReactMarkdown>}
                 </div> :
-                <div className='article_center'>
+                <div className={commentID ? 'comment-active' :'article_center'}>
                     {article.postType === "hosted:video" || article.postType === "rich:video" ?
                     article.postType === "hosted:video" ? <video className='content_video' controls data-setup='{}'> <source src={article.video} type="video/mp4" /></video>  : 
-                    <iframe src={toolKeys.embedYoutube(article.content)} className="youtube_content" allowFullScreen height= "350px"></iframe>  :   
+                    <iframe src={toolKeys.embedYoutube(toolKeys.replaceText(article.url,"?"))} className="youtube_content" allowFullScreen height= "350px"></iframe>  :   
                     <img src={article.content} alt='' className='content_img'/>
                     }         
                 </div>

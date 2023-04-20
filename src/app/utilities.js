@@ -55,11 +55,12 @@ export const toolKeys = {
     getArticleType() {
         return  window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
     },
-    replaceText(text){
-        return text.replaceAll(".", ".\n\n")
+    replaceText(text,sign){
+        return text.replaceAll("&amp;", sign)
     },
     embedYoutube(youtubeVideo) {
-        (youtubeVideo.match(/v=([^&]*)/) ? youtubeVideo = youtubeVideo.replace("watch?v=","embed/") : youtubeVideo = `https://www.youtube.com/embed/${youtubeVideo.slice(-11)}`)
+        (youtubeVideo.match(/v=([^&]*)/) ? youtubeVideo = youtubeVideo.replace("watch?v=","embed/") : 
+        youtubeVideo = `https://www.youtube.com/embed/${youtubeVideo.slice(-11)}`)
         return youtubeVideo;
     },
     getSelectedSubreddit(searchResults,mySubreddits,subreddit) {
@@ -73,7 +74,7 @@ export const toolKeys = {
     },
     countArray(number) {
         let array = []
-        while (number >0) {
+        while (number > 0) {
             array.push(number);
             number--;
         }
@@ -93,7 +94,7 @@ export const ResultLoader = () => (
         <rect x="62" y="29" rx="3" ry="3" width="88" height="6" /> 
         <rect x="61" y="13" rx="3" ry="3" width="52" height="6" /> 
         <circle cx="30" cy="27" r="20" />
-  </ContentLoader>
+    </ContentLoader>
 )
 export const UserNameLoader = () => (
     <ContentLoader 
@@ -106,7 +107,7 @@ export const UserNameLoader = () => (
     >
         <rect x="54" y="15" rx="3" ry="3" width="52" height="6" /> 
         <circle cx="24" cy="18" r="17" />
-  </ContentLoader>
+    </ContentLoader>
 )
 export const ArticleLoader = () => (
     <ContentLoader 
@@ -122,7 +123,7 @@ export const ArticleLoader = () => (
         <rect x="33" y="58" rx="2" ry="2" width="570" height="461" /> 
         <rect x="249" y="541" rx="2" ry="2" width="140" height="18" /> 
         <rect x="505" y="542" rx="2" ry="2" width="85" height="17" />
-  </ContentLoader>
+    </ContentLoader>
 )
 export const CommentLoader = () => (
     <ContentLoader 
@@ -140,7 +141,7 @@ export const CommentLoader = () => (
         <rect x="31" y="41" rx="2" ry="2" width="287" height="48" /> 
         <rect x="110" y="100" rx="2" ry="2" width="51" height="11" /> 
         <rect x="34" y="100" rx="2" ry="2" width="59" height="13" />
-  </ContentLoader>
+    </ContentLoader>
 )
 export const SubredditLoader = () => (
     <ContentLoader 

@@ -1,0 +1,17 @@
+.upToTop {
+    min-height: 2rem;
+    max-width: 5rem;
+    min-width: 3rem;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    background-color: rgb(36, 33, 33);
+    color: rgb(227,216,202);
+}
+.hidden {
+    visibility: hidden;
+}

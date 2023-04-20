@@ -12,7 +12,7 @@ export const loadPosts = createAsyncThunk(
 export const loadMorePosts = createAsyncThunk(
     "post/loadMorePosts ",
     async ({subredditName,type,afterID}) => {
-        const response = await Reddit.getMorePosts(subredditName,type,afterID);
+        const response = await Reddit.getPosts(subredditName,type,afterID);
         return response;
     }  
 );

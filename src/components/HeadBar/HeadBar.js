@@ -1,6 +1,6 @@
 import React, { useEffect} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
-import { Link,useNavigate} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toolKeys,UserNameLoader } from '../../app/utilities';
 import {Search} from '../../features/Search/Search';
 import { loadUserIdentity,selectHeadBar,isLoadingUser } from './headBarSlice';
@@ -11,24 +11,17 @@ export const HeadBar =()=> {
     const dispatch = useDispatch();
     const loadingIdentity = useSelector(isLoadingUser);
     const userIdentity = useSelector(selectHeadBar);
-    const navigate= useNavigate();
-
     useEffect(()=>{
         if (!Object.keys(userIdentity).length) {
           dispatch(loadUserIdentity());
         }
     },[userIdentity]) 
     
-   
-    const onClickHandler = (event) => {
-        event.preventDefault();
-        navigate("/")
-    }    
 
     return(
         <header>
             <div className="header-wrapper">
-                <div className='home-container' onClick={onClickHandler}>
+                <div className='home-container'>
                     <Link to='/' className="title">
                         <RedditLogo/>
                         <h4>RedditEclair</h4>  
