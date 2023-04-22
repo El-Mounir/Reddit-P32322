@@ -1,11 +1,10 @@
-import React , {useState} from 'react';
+import React  from 'react';
 import { Link, useParams   } from "react-router-dom";
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { ArticleLoader, toolKeys } from '../../app/utilities';
-import { isLoadingPost,sendVotes } from '../../components/ArticlesList/articlesListSlice';
+import { isLoadingPost} from '../../components/ArticlesList/articlesListSlice';
 import { ROUTES } from '../../app/Routes';
-import {ReactComponent as UpArrow } from '../../app/resources/upArrow.svg';
-import {ReactComponent as DownArrow} from '../../app/resources/downArrow.svg';
+import { Votes } from '../../components/Votes/Votes';
 import { ReactComponent as Comment } from '../../app/resources/comment.svg';
 import ReactMarkdown from 'react-markdown';
 import './Article.css';
@@ -13,41 +12,7 @@ import './Article.css';
 export const Article=({article})=> {
     const { commentID } = useParams();
     sessionStorage.setItem("article", JSON.stringify(article));
-    const dispatch = useDispatch();
     const loadingPost= useSelector(isLoadingPost);
-    const [ voteCount,setVoteCount ] = useState(article.votes);
-    const [ voteStatus,setVoteStatus ] = useState(article.vote);
- 
-    const upVote = () =>{
-       if (voteStatus) {
-            dispatch(sendVotes({id:`t3_${article.postID}`, vote:0}));
-            setVoteStatus(null);
-            setVoteCount(voteCount-1)
-       } else if (voteStatus === false) {
-            dispatch(sendVotes({id:`t3_${article.postID}`, vote:1}));
-            setVoteStatus(true);
-            setVoteCount(voteCount+2);
-       } else {
-            dispatch(sendVotes({id:`t3_${article.postID}`, vote:1}));
-            setVoteStatus(true);
-            setVoteCount(voteCount+1);
-       }
-    };
-    const downVote = () =>{
-       if (voteStatus === false) {
-            dispatch(sendVotes({id:`t3_${article.postID}`, vote:0}));
-            setVoteStatus(null);
-            setVoteCount(voteCount+1);
-       } else if (voteStatus) {
-            dispatch(sendVotes({id:`t3_${article.postID}`, vote:-1}));
-            setVoteStatus(false);
-            setVoteCount(voteCount-2);
-       } else{
-            dispatch(sendVotes({id:`t3_${article.postID}`, vote:-1}));
-            setVoteStatus(false);
-            setVoteCount(voteCount-1);
-       }
-    };
 
     return(
         <ul className='article_container'>
@@ -65,16 +30,14 @@ export const Article=({article})=> {
                 <div className={commentID ? 'comment-active' :'article_center'}>
                     {article.postType === "hosted:video" || article.postType === "rich:video" ?
                     article.postType === "hosted:video" ? <video className='content_video' controls data-setup='{}'> <source src={article.video} type="video/mp4" /></video>  : 
-                    <iframe src={toolKeys.embedYoutube(toolKeys.replaceText(article.url,"?"))} className="youtube_content" allowFullScreen height= "350px"></iframe>  :   
+                    <iframe src={toolKeys.embedYoutube(toolKeys.replaceText(article.url,"?"))} className="youtube_content" allowFullScreen height= "350px"></iframe> :   
                     <img src={article.content} alt='' className='content_img'/>
                     }         
                 </div>
                 }
                 <div className='article_buttom'>
                     <div className='votes'>
-                        <UpArrow className={voteStatus ? "uparrowActive" : "uparrow" } onClick={upVote}/>
-                        <p>{toolKeys.convertNumbers(voteCount)}</p>
-                        <DownArrow className={voteStatus === false ? "downarrowActive" : "downarrow" } onClick={downVote}/>
+                        <Votes article={article}/>
                     </div>
                     <p className='post_author'>Posted by u/{article.author} {toolKeys.epochConverter(article.time)} ago</p>
                     <Link to={ROUTES.ArticleComments(article.subreddit,article.postID)} className="toComments">

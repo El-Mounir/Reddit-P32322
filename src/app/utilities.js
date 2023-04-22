@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState,useEffect }from "react"
 import ContentLoader from "react-content-loader"
 
 export const toolKeys = {
@@ -38,18 +38,17 @@ export const toolKeys = {
         return "";
     },
     epochConverter(tnumber) {
-        const inSeconds = [0,60,3600,86400,604800,2419200,31536000];
+        const inSeconds = [1,60,3600,86400,604800,2419200,31536000];
         const inUnit = ["second","minute","hour","day","week","month","year"]
         let creationTime = Math.floor((Date.now()/1000) - tnumber);
-
+ 
         for (let t=0; t < inSeconds.length;t++) {
             if (( creationTime >= inSeconds[t])  && ( creationTime < inSeconds[t+1])) {        
                 ((creationTime - inSeconds[t] ) == 0 ? 
                 creationTime = `${Math.floor(creationTime/inSeconds[t])} ${inUnit[t]}` : 
                 creationTime = `${Math.floor(creationTime/inSeconds[t])} ${inUnit[t]}s`);
-
             return creationTime;
-            }          
+            } 
         }
     },
     getArticleType() {
@@ -79,8 +78,22 @@ export const toolKeys = {
             number--;
         }
         return array;
-    }
+    },
 }
+
+export const useScrollPosition = () => {
+    const [isPosition, setIsPosition] = useState(0);
+  
+    useEffect(() => {
+      const updatePosition = () => {
+        setIsPosition(window.pageYOffset);
+      }
+      window.addEventListener("scroll", updatePosition);
+      updatePosition();
+      return () => window.removeEventListener("scroll", updatePosition);
+    }, []);
+    return isPosition;
+};
 
 export const ResultLoader = () => (
     <ContentLoader 

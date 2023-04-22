@@ -4,7 +4,6 @@ import { Article } from '../../features/Article/Article';
 import { selectLoadArticleSlice } from '../ArticlesList/articlesListSlice';
 import { useParams } from 'react-router-dom';
 import { toolKeys,CommentLoader } from '../../app/utilities';
-import { selectHeadBar } from '../HeadBar/headBarSlice';
 import { selectLoadCommentSlice,getComments ,sendComments,isLoadingComment } from './articleCommentsSlice';
 import { Comment } from '../../features/Comment/Comment';
 import { Page } from '../Page/Page';
@@ -12,6 +11,7 @@ import './ArticleComments.css';
 import { UpButton } from '../UpButton/UpButton';
 
 export const ArticleComments = () => {
+    const textarea = document.getElementById('commentSection');
     window.scroll(0,0);
     const {subreddit,commentID} = useParams();
     const [comment,setComment] = useState("");
@@ -29,6 +29,7 @@ export const ArticleComments = () => {
         event.preventDefault();
         dispatch(sendComments({comment:comment,postID:`t3_${commentID}`}));
         setComment('');
+        textarea.value = '';
     };
    
     return(
@@ -39,7 +40,7 @@ export const ArticleComments = () => {
                         <Article article={article ? article : JSON.parse(sessionStorage.article)}/> 
                         <form onSubmit={onSubmitHandler}>
                             <div className='comment-container'>
-                                <textarea type='text' name='commentSection' id='commentSection' placeholder='Your comment here' onChange={(event) => setComment(event.currentTarget.value)}/>
+                                <textarea name='commentSection' id='commentSection' placeholder='Your comment here' onChange={(event) => setComment(event.currentTarget.value)}></textarea>
                                 <button className='comment-button'>
                                     Comment
                                 </button>
@@ -52,8 +53,8 @@ export const ArticleComments = () => {
                     { loadingComment ? toolKeys.countArray(8).map((count) => <CommentLoader  key={`loader ${count}`}/>) : 
                     (comments.length === 0) ? <div className='noComments'>No Comments yet</div> :
                     <>
-                     {comments.map((comment) => (
-                        <Comment comment={comment} key={comment.commentID}/>)
+                     {comments.map((comment) => (comment.comment ?
+                        <Comment comment={comment} key={comment.commentID}/> : null)
                         )}
                     </>
                     }

@@ -9,19 +9,18 @@ import { ArticleComments } from '../components/ArticleComments/ArticleComments';
 import './App.css';
 
 function App() {
-
+  
   useEffect(()=>{
       if (!token) {
         Reddit.getAccessToken();
       }
-  },[]) 
-       
-  
+  },[]) ;
+
   return (
     <Router>
       <HeadBar/>
       <Routes>
-          <Route path="/*" element= {<MainPage />}>
+          <Route path="/*" element= {<MainPage/>}>
             <Route path=":postType" element={<MainPage />}/>
           </Route>
           <Route path="r/:subreddit/*" element= {<MainPageSubreddit />}>

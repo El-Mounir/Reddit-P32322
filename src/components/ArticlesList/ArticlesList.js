@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect,useState } from 'react';
+import { useScrollPosition } from '../../app/utilities';
 import { useDispatch } from 'react-redux';
 import { Article } from '../../features/Article/Article';
 import { loadMorePosts } from './articlesListSlice';
@@ -7,6 +8,7 @@ import './ArticlesList.css';
 
 export const ArticlesList=({articles,subredditName})=> {
     const [afterID,setAfterID] =useState();
+    const scrollPosition = useScrollPosition();
     const dispatch = useDispatch();
     const articlesLength = Object.keys(articles).length;
 
@@ -28,7 +30,7 @@ export const ArticlesList=({articles,subredditName})=> {
                     <Article article={article} key={article.postID}/>
                 ))}
             </div>
-            <button className='addmore' onClick={onClickHandler}>More</button> 
+            <button className={scrollPosition === 0 ? 'hidden' : 'addmore'} onClick={onClickHandler}>More</button> 
         </section>
     );
 }

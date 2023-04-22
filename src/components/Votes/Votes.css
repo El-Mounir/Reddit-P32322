@@ -1,0 +1,27 @@
+.votes {
+    padding: 0 0.1rem;
+    font-weight: bold;
+    justify-items: flex-start;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 0.4rem;
+    gap: 0.3rem;
+}
+.uparrow,.downarrow {
+    fill:rgb(227,216,202);
+    max-width: 20px;
+    max-height: 20px;
+}
+.downarrowActive,.uparrowActive {
+    max-width: 20px;
+    max-height: 20px;
+}
+.uparrow:hover, .uparrowActive {
+    fill:cornflowerblue;
+}
+.downarrow:hover, .downarrowActive {
+    fill:crimson;
+}
+.downarrow:hover,.uparrow:hover,.downarrowActive:hover,.uparrowActive:hover {
+    cursor: pointer;
+}

@@ -254,7 +254,7 @@ const Reddit= {
     // const data = Reddit.manageSubscriptions(false,"gaming");
     // const data = Reddit.postVotes("t3_12jjqar",0)
     // const data = Reddit.sendComments("test nr 1 comment","t3_12qe770",);
-    console.log(data)
+    // console.log(data)
 // // console.log(dataNew)
 
 // const test =(obj,obj1) => {
@@ -456,4 +456,25 @@ function replaceText(text){
 }
 
 const text1 = "https://youtube.com/watch?v=3MYC83xN9Ko&amp;feature=share";
-console.log(replaceText(text1))
+// console.log(replaceText(text1))
+
+
+// function epochConverter(creationTime) {
+//     const inSeconds = [1,60,3600,86400,604800,2419200,31536000];
+//     const inUnit = ["second","minute","hour","day","week","month","year"]
+//     for (let t=0; t < inSeconds.length;t++) {
+//         if (( creationTime >= inSeconds[t])  && ( creationTime < inSeconds[t+1])) {        
+//             ((creationTime - inSeconds[t] ) == 0 ? 
+//             creationTime = `${Math.floor(creationTime/inSeconds[t])} ${inUnit[t]}` : 
+//             creationTime = `${Math.floor(creationTime/inSeconds[t])} ${inUnit[t]}s`);
+//         return creationTime;
+//         } 
+//     }
+// };
+
+// console.log(epochConverter(120));
+
+
+const video = "https://www.nottube.com/embed/D3WV8iDoPAY";
+
+console.log(video.match("youtube"));

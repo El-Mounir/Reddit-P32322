@@ -44,7 +44,6 @@ export const loadCommentSlice = createSlice({
         },
         [sendComments.fulfilled]: (state,action) =>{
             state.newcomment = state.comments;
-            console.log(action.payload)
             state.newcomment.push(action.payload);
             state.isLoadingComment = false;
             state.failedToLoadComment = false;

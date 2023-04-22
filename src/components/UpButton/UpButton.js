@@ -1,24 +1,15 @@
-import React, { useState,useEffect } from "react";
+import React from "react";
+import { useScrollPosition } from "../../app/utilities";
 import './UpButton.css';
 
 export const UpButton = () => {
-    // const [isTop,setIsTop] = useState(true);
-    // const yLocation = window.scrollY;
-
-
-    // useEffect(() =>{
-    //     if (yLocation > 10) {
-    //         setIsTop(false);
-    //         console.log(yLocation)
-    //     }
-
-    // },[yLocation])
+    const scrollPosition = useScrollPosition();
 
     const onClickHandler = () => {
         window.scroll(0,0);
-    }
-
+    };
+    
     return (
-        <button className='upToTop' onClick={onClickHandler}>Up</button>
+        <button className={scrollPosition === 0 ? 'hidden' : 'upToTop'} onClick={onClickHandler} >Up</button>
     )
 }

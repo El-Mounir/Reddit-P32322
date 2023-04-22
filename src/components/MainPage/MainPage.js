@@ -7,7 +7,7 @@ import { UpButton } from '../UpButton/UpButton';
 
 export const MainPage = () => {
     const {postType} = useParams();
-    
+
     return (  
         <div className='mainpage-wrapper'>
             <Page className='main'>
@@ -15,7 +15,7 @@ export const MainPage = () => {
                     <ArticlesTypes subredditName="" defaultType={ postType ? postType : "best"}/>
                 </div>  
                 <div className='side-container'>
-                    <UpButton/>
+                    <UpButton />
                     <MySubredditList/>
                 </div>
             </Page>
