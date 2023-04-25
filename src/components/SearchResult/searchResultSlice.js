@@ -8,6 +8,14 @@ async (searchTerm) => {
         return response;
     }
 );
+export const loadMoreSearchResult = createAsyncThunk(
+    "search/loadMoreSearchResult",
+async ({searchTerm,afterID}) => {
+        const response = await Reddit.getSubreddits(searchTerm,afterID)
+        return response;
+    }
+);
+
 export const searchResultSlice = createSlice({
     name: "search",
     initialState: {
@@ -26,6 +34,22 @@ export const searchResultSlice = createSlice({
             state.failedToLoadResult = false;
         },
         [loadSearchResultByName.failed]: (state,action) =>{
+            state.isLoadingResult = false;
+            state.failedToLoadResult = true;
+        },
+        [loadMoreSearchResult.pending]: (state,action) =>{
+            state.isLoadingResult = true;
+            state.failedToLoadResult = false;
+        },
+        [loadMoreSearchResult.fulfilled]: (state,action) =>{
+            const newResults = action.payload;
+            for (let subreddit in newResults) {
+                state.result.push(newResults[subreddit]);
+            }
+            state.isLoadingResult = false;
+            state.failedToLoadResult = false;
+        },
+        [loadMoreSearchResult.failed]: (state,action) =>{
             state.isLoadingResult = false;
             state.failedToLoadResult = true;
         },

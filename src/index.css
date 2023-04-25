@@ -19,23 +19,20 @@ h4,h5 {
   color: rgb(227,216,202);
 }
 .main-container {
-  width: 70%;
+  flex-basis: 40rem;
   justify-content: flex-start;
   flex-direction: column;
 }
 .side-container {
-  width: 30%;
   justify-content: flex-end;
   flex-direction: column-reverse;
-  margin-left: 5rem;
 }
-.main-container, .side-container {
-  flex-basis: auto;
+.main-container, .side-container,.mainpage-wrapper  {
   display: flex;
 }
 .mainpage-wrapper {   
-  display: flex;
   justify-content: center;
+  width: 100%;
 }
 span {
   color:rgb(36, 33, 33);

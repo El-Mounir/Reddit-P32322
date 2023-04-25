@@ -11,7 +11,6 @@ export const Comment=({comment})=> {
         <li key={comment.commentID} className='comment-wrapper'>
             <div className='upper-container'>
               <p className='author-name'>{comment.author}</p>
-              {console.log(toolKeys.epochConverter(comment.time) )}
               {!toolKeys.epochConverter(comment.time) ? <p>just now</p> : <p>{toolKeys.epochConverter(comment.time)} ago</p>}
             </div>
             <div className= 'body-container'>
@@ -19,7 +18,6 @@ export const Comment=({comment})=> {
             </div>
             <div className='bottom-container'>
                 <Votes article= {comment}/>
-                <p>Reply</p>
             </div>      
         </li>
     )

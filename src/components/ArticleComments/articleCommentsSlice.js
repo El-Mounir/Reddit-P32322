@@ -8,10 +8,19 @@ export const getComments = createAsyncThunk(
             return response;
     }   
 );
+
+export const getMoreComments = createAsyncThunk(
+    "comment/getMoreComments",
+    async ({subreddit,postID,children}) => {
+            const response = await Reddit.getComments(subreddit,postID,children);
+            return response;
+    }   
+);
+
 export const sendComments = createAsyncThunk(
     "comment/sendComments",
-    async ({comment,postID}) => {
-            const response = await Reddit.sendComments(comment,postID);
+    async ({comment,postID,userName}) => {
+            const response = await Reddit.sendComments(comment,postID,userName);
             return response;
     }   
 );
@@ -35,6 +44,22 @@ export const loadCommentSlice = createSlice({
             state.failedToLoadComment = false;
         },
         [getComments.failed]: (state,action) =>{
+            state.isLoadingComment = false;
+            state.failedToLoadComment = true;
+        },
+        [getMoreComments.pending]: (state,action) =>{
+            state.isLoadingComment = true;
+            state.failedToLoadComment = false;
+        },
+        [getMoreComments.fulfilled]: (state,action) =>{
+            const newComments = action.payload;
+            for (let comment in newComments) {
+                state.comments.push(newComments[comment]);
+            }
+            state.isLoadingComment = false;
+            state.failedToLoadComment = false;
+        },
+        [getMoreComments.failed]: (state,action) =>{
             state.isLoadingComment = false;
             state.failedToLoadComment = true;
         },

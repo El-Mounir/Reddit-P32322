@@ -6,7 +6,6 @@ import { selectloadMySubsSlice,changeSubscription } from '../../components/Subre
 import { ROUTES } from '../../app/Routes';
 import './Subreddit.css';
 
-
 export const Subreddit =({unit})=> {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -48,7 +47,7 @@ export const Subreddit =({unit})=> {
     return (
         <li key={unit.redditID} className="subreddit">
             <div className='subreddit_img_container' onClick={onClickHandler}>
-                <img src={unit.icon_image ? unit.icon_image : './no-photo-available.jpg'} alt='' className='reddit_img'/>
+                <img src={unit.icon_image ? unit.icon_image : 'no-photo-available.jpg'} alt='' className='reddit_img'/>
             </div>  
             <div className='name_container' onClick={onClickHandler}>
                 <h5 className='reddit_name'>r/{unit.name}</h5>

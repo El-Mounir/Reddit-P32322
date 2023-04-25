@@ -5,7 +5,7 @@ export const toolKeys = {
 
     convertNumbers(num) {
         let isNegatif;
-        if (num === null) {
+        if (num === null || !num) {
             return "0";
         }
         let number= num.toString();
@@ -51,8 +51,8 @@ export const toolKeys = {
             } 
         }
     },
-    getArticleType() {
-        return  window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+    getSearchTerm() {
+        return  window.location.href.match(/q=([^&]*)/)[1];
     },
     replaceText(text,sign){
         return text.replaceAll("&amp;", sign)

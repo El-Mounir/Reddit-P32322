@@ -26,12 +26,10 @@ export const Search=()=> {
         navigate(ROUTES.searchResult(searchQuery));
     };
     
-
     return(
             <div className='searchBar-wrapper'>
                 <form onSubmit={onSearchHandler} className="searchBar-container">
                     <input type='text' placeholder='Search Reddit' ref={searchInputRef} className='searchBar'/>
-                    <button className='searchButton' type='button'><i className='fas fa-search'></i></button>
                 </form>
             </div>
     );

@@ -4,6 +4,7 @@ import { toolKeys,SubredditLoader} from "../../app/utilities";
 import { selectloadMySubsSlice, loadMySubreddits,isLoadingSubreddit } from "./mySubredditListSlice";
 import { useSelector, useDispatch } from 'react-redux';
 import './MySubredditList.css';
+import { ShowMore } from "../ShowMore/ShowMore";
 
 export const MySubredditList = () => {
     const dispatch = useDispatch();
@@ -13,8 +14,8 @@ export const MySubredditList = () => {
     useEffect(()=>{
         if (Object.keys(subreddits).length === 0) {
           dispatch(loadMySubreddits());
-        }
-       },[subreddits]) 
+        };
+    },[subreddits]) 
 
     return(
         <section className="Mysubreddits-container">
@@ -27,6 +28,9 @@ export const MySubredditList = () => {
                 ))}
                 </>
                 }
+                <div className="show_mySubreddits">
+                    <ShowMore segment={subreddits} whatToGet={"mySubreddits"}/>
+                </div>
             </ul>
         </section>
     ) 

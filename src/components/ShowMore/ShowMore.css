@@ -1,0 +1,17 @@
+.addmore {
+    max-width: 7rem;
+    min-width: 5rem;
+    min-height: 2rem;
+    align-self: center;
+    bottom: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    background-color: rgb(36, 33, 33);
+    color: rgb(227,216,202);
+    margin: .7rem 0 0.5rem 0;
+}
+.hidden {
+    visibility: hidden;
+}

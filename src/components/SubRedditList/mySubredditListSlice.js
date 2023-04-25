@@ -4,9 +4,17 @@ import { Reddit } from "../../app/RedditAPI";
 export const loadMySubreddits= createAsyncThunk(
     "subreddit/loadMySubreddits",
 async () => {
-        const response = await Reddit.getSubreddits()
+        const response = await Reddit.getSubreddits();
         return response;
     }
+);
+
+export const loadMoreSubreddits = createAsyncThunk(
+    "subreddit/loadMoreSubreddits",
+    async ({subreddit,afterID}) => {
+        const response = await Reddit.getSubreddits(subreddit,afterID);
+        return response;
+    }  
 );
 
 export const changeSubscription = createAsyncThunk(
@@ -39,6 +47,22 @@ export const loadMySubsSlice = createSlice({
             state.failedToLoadSubreddit= false;
         },
         [loadMySubreddits.failed]: (state,action) =>{
+            state.isLoadingSubreddit = false;
+            state.failedToLoadSubreddit = true;
+        },
+        [loadMoreSubreddits.pending]: (state,action) =>{
+            state.isLoadingSubreddit = true;
+            state.failedToLoadSubreddit = false;
+        },
+        [loadMoreSubreddits.fulfilled]: (state,action) =>{
+            const newSubreddits = action.payload;
+            for (let subreddit in newSubreddits) {
+                state.result[newSubreddits[subreddit].name] = newSubreddits[subreddit];
+            }
+            state.isLoadingSubreddit= false;
+            state.failedToLoadSubreddit= false;
+        },
+        [loadMoreSubreddits.failed]: (state,action) =>{
             state.isLoadingSubreddit = false;
             state.failedToLoadSubreddit = true;
         },
