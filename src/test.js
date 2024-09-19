@@ -1,8 +1,6 @@
 
 
 const IDs = {
-    cID: "ZYWP2FoU6UN37Lwbq0FjwQ",
-    credID: "p1fgaDtPXf87c1qKJsIloDWwtwGE4w",
     redirectUri: "http://localhost:3000/",
     state:"yguyef35r837gui3t78g",
     accessCode: "",
